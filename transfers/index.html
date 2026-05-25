@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Transfers — State 3156</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0b0f15;--bg-2:#11161f;--bg-3:#161c27;--bg-hover:#1a212e;--border:#232a37;--border-soft:#1a212e;--ink:#e6e9ef;--ink-2:#a3acbb;--ink-3:#6a7484;--green:#34d399;--green-dim:rgba(52,211,153,0.12);--purple:#a855f7;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5;font-size:15px;-webkit-font-smoothing:antialiased;background-image:radial-gradient(circle at 1px 1px,rgba(255,255,255,0.025) 1px,transparent 0);background-size:24px 24px;}
+.wrap{width:100%;max-width:1200px;margin:0 auto;padding:16px 16px 64px;}
+@media(min-width:700px){.wrap{padding:20px 24px 80px;}}
+.appbar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 14px;background:var(--bg-2);border:1px solid var(--border);border-radius:8px;margin-bottom:14px;}
+.appbar-left{display:flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;color:var(--ink);}
+.state-id{background:linear-gradient(90deg,var(--purple) 0%,#c084fc 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-weight:700;}
+.logo-mark{width:24px;height:24px;border:1.5px solid var(--purple);border-radius:5px;display:inline-flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:var(--purple);flex-shrink:0;box-shadow:0 0 12px rgba(168,85,247,0.25);text-decoration:none;}
+.appbar-nav{display:none;gap:4px;}
+@media(min-width:700px){.appbar-nav{display:flex;}}
+.appbar-nav a{font-size:13px;font-weight:500;color:var(--ink-2);text-decoration:none;padding:6px 10px;border-radius:5px;transition:background .15s,color .15s;}
+.appbar-nav a:hover,.appbar-nav a.active{color:var(--purple);}
+.appbar-right{display:flex;align-items:center;gap:10px;}
+.status-pill{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;background:var(--green-dim);border:1px solid rgba(52,211,153,0.3);border-radius:999px;font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:600;color:var(--green);}
+.status-dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:pulse 2s ease-in-out infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+.menu-btn{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;background:transparent;border:1px solid var(--border);border-radius:6px;color:var(--ink-2);cursor:pointer;}
+@media(min-width:700px){.menu-btn{display:none;}}
+.coming-soon{margin:80px auto;max-width:480px;text-align:center;}
+.coming-soon .ico{font-family:'JetBrains Mono',monospace;font-size:36px;color:var(--purple);margin-bottom:20px;}
+.coming-soon h2{font-size:24px;font-weight:700;color:var(--ink);margin-bottom:10px;letter-spacing:-0.02em;}
+.coming-soon p{font-size:15px;color:var(--ink-2);line-height:1.6;margin-bottom:28px;}
+.back{display:inline-flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.1em;color:var(--ink-3);text-decoration:none;text-transform:uppercase;transition:color .15s;}
+.back:hover{color:var(--purple);}
+.foot{margin-top:48px;padding-top:16px;border-top:1px solid var(--border-soft);font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-3);display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;}
+.foot .accent{color:var(--purple);}
+.foot a{color:var(--ink-3);text-decoration:none;}
+.foot a:hover{color:var(--purple);}
+.sticky-cta{position:fixed;bottom:0;left:0;right:0;background:linear-gradient(180deg,rgba(11,15,21,0) 0%,var(--bg) 30%);padding:16px 14px calc(14px + env(safe-area-inset-bottom));z-index:50;}
+.sticky-cta .btn{width:100%;}
+@media(min-width:700px){.sticky-cta{display:none;}}
+@media(max-width:699.98px){body{padding-bottom:90px;}}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 18px;font-family:'Inter',sans-serif;font-weight:600;font-size:14px;text-decoration:none;border-radius:7px;border:1px solid transparent;cursor:pointer;transition:all .15s ease;min-height:44px;}
+.btn-primary{background:var(--green);color:#052e1f;border-color:var(--green);box-shadow:0 0 0 1px rgba(52,211,153,0.2),0 6px 16px -8px rgba(52,211,153,0.45);}
+.btn-primary:hover{background:#2bc28a;border-color:#2bc28a;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="appbar">
+    <div class="appbar-left">
+      <a href="/state3156/" class="logo-mark">3156</a>
+      <span class="state-id">state-3156</span>
+    </div>
+    <div class="appbar-nav">
+      <a href="/state3156/grip">Governance</a>
+      <a href="/state3156/tools">Tools</a>
+      <a href="/state3156/alliances">Alliances</a>
+      <a href="/state3156/transfers">Transfers</a>
+    </div>
+    <div class="appbar-right">
+      <span class="status-pill"><span class="status-dot"></span>RECRUITING</span>
+      <button class="menu-btn" aria-label="Menu">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+    </div>
+  </nav>
+  <div class="coming-soon">
+    <div class="ico">&gt;_</div>
+    <h2>Transfers</h2>
+    <p>This page is being built. Check back soon, or join the Discord to get the information directly.</p>
+    <a class="back" href="/state3156/">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Back to state home
+    </a>
+  </div>
+  <div class="foot">
+    <span><a href="/state3156/"><span class="accent">state-3156</span></a> · transfers</span>
+    <span>coming soon</span>
+  </div>
+</div>
+<div class="sticky-cta">
+  <a class="btn btn-primary" href="https://discord.gg/u423WPcS">
+    Join the State Discord
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+  </a>
+</div>
+</body>
+</html>

@@ -451,12 +451,8 @@ body {
 
 /* ===== Bear times strip ===== */
 .bear-strip {
-  margin-top: 10px;
-  margin-bottom: 8px;
-  padding: 0 16px;
+  margin-top: 24px;
 }
-@media (min-width: 700px) { .bear-strip { padding: 0 24px; } }
-@media (min-width: 1000px) { .bear-strip { padding: 0 32px; } }
 .bear-strip-header {
   display: flex;
   align-items: center;
@@ -479,14 +475,6 @@ body {
   scrollbar-width: thin;
   scrollbar-color: var(--border) transparent;
   padding-bottom: 4px;
-}
-/* On desktop — spread evenly, no scroll needed */
-@media (min-width: 700px) {
-  .bear-scroll {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    overflow-x: visible;
-  }
 }
 .bear-scroll::-webkit-scrollbar { height: 4px; }
 .bear-scroll::-webkit-scrollbar-track { background: transparent; }
@@ -720,7 +708,7 @@ body {
         <div class="sub">eligible: #3114–#3315</div>
       </div>
       <div class="kpi">
-        <div class="label">NAP <span class="badge good">stable</span></div>
+        <div class="label">Competitive <span class="badge good">stable</span></div>
         <div class="value">6</div>
         <div class="sub">strictly SvS-focused</div>
       </div>
@@ -736,67 +724,65 @@ body {
       </div>
     </div>
 
+    <!-- Bear times strip -->
+    <div class="bear-strip">
+      <div class="bear-strip-header">
+        <span class="label">Bear Hunt Times</span>
+        <span class="note">UTC · tap for alliance →</span>
+      </div>
+      <div class="bear-scroll">
+        <a class="bear-card" href="/state3156/alliances/mad">
+          <span class="ally-tag">MAD</span>
+          <div class="times">
+            <span class="time">00:10</span>
+            <span class="time">18:30</span>
+          </div>
+          <span class="utc">UTC</span>
+        </a>
+        <a class="bear-card" href="/state3156/alliances/wld">
+          <span class="ally-tag">WLD</span>
+          <div class="times">
+            <span class="time">01:20</span>
+            <span class="time">20:00</span>
+          </div>
+          <span class="utc">UTC</span>
+        </a>
+        <a class="bear-card" href="/state3156/alliances/vks">
+          <span class="ally-tag">VKS</span>
+          <div class="times">
+            <span class="time">03:00</span>
+            <span class="time">20:30</span>
+          </div>
+          <span class="utc">UTC</span>
+        </a>
+        <a class="bear-card" href="/state3156/alliances/evl">
+          <span class="ally-tag">EVL</span>
+          <div class="times">
+            <span class="time">11:00</span>
+            <span class="time">21:00</span>
+          </div>
+          <span class="utc">UTC</span>
+        </a>
+        <a class="bear-card" href="/state3156/alliances/phx">
+          <span class="ally-tag">PHX</span>
+          <div class="times">
+            <span class="time">14:00</span>
+            <span class="time">18:00</span>
+            <span class="time">21:00</span>
+          </div>
+          <span class="utc">UTC</span>
+        </a>
+        <a class="bear-card" href="/state3156/alliances/hwz">
+          <span class="ally-tag">HWZ</span>
+          <div class="times">
+            <span class="time">15:00</span>
+            <span class="time">21:00</span>
+          </div>
+          <span class="utc">UTC</span>
+        </a>
+      </div>
     </div>
   </section>
-
-  <!-- Bear times strip — full width -->
-  <div class="bear-strip">
-    <div class="bear-strip-header">
-      <span class="label">Bear Hunt Times</span>
-      <span class="note">UTC · tap for alliance →</span>
-    </div>
-    <div class="bear-scroll">
-      <a class="bear-card" href="/state3156/alliances/mad">
-        <span class="ally-tag">MAD</span>
-        <div class="times">
-          <span class="time">00:10</span>
-          <span class="time">18:30</span>
-        </div>
-        <span class="utc">UTC</span>
-      </a>
-      <a class="bear-card" href="/state3156/alliances/wld">
-        <span class="ally-tag">WLD</span>
-        <div class="times">
-          <span class="time">01:20</span>
-          <span class="time">20:00</span>
-        </div>
-        <span class="utc">UTC</span>
-      </a>
-      <a class="bear-card" href="/state3156/alliances/vks">
-        <span class="ally-tag">VKS</span>
-        <div class="times">
-          <span class="time">03:00</span>
-          <span class="time">20:30</span>
-        </div>
-        <span class="utc">UTC</span>
-      </a>
-      <a class="bear-card" href="/state3156/alliances/evl">
-        <span class="ally-tag">EVL</span>
-        <div class="times">
-          <span class="time">11:00</span>
-          <span class="time">21:00</span>
-        </div>
-        <span class="utc">UTC</span>
-      </a>
-      <a class="bear-card" href="/state3156/alliances/phx">
-        <span class="ally-tag">PHX</span>
-        <div class="times">
-          <span class="time">14:00</span>
-          <span class="time">18:00</span>
-          <span class="time">21:00</span>
-        </div>
-        <span class="utc">UTC</span>
-      </a>
-      <a class="bear-card" href="/state3156/alliances/hwz">
-        <span class="ally-tag">HWZ</span>
-        <div class="times">
-          <span class="time">15:00</span>
-          <span class="time">21:00</span>
-        </div>
-        <span class="utc">UTC</span>
-      </a>
-    </div>
-  </div>
 
   <!-- Quick links — 4 cards -->
   <section class="links">

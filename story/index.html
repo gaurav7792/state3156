@@ -212,5 +212,19 @@ body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg); c
   </a>
 </div>
 
+<script>
+(function(){
+  var btn=document.querySelector('.menu-btn');
+  var nav=document.querySelector('.appbar-nav');
+  if(!btn||!nav)return;
+  var dd=nav.cloneNode(true);
+  dd.style.cssText='display:none;position:fixed;top:58px;left:12px;right:12px;background:#11161f;border:1px solid #232a37;border-radius:8px;padding:8px;z-index:100;flex-direction:column;gap:4px;box-shadow:0 8px 32px rgba(0,0,0,0.4)';
+  document.body.appendChild(dd);
+  var open=false;
+  btn.addEventListener('click',function(e){e.stopPropagation();open=!open;dd.style.display=open?'flex':'none';btn.setAttribute('aria-expanded',open);});
+  document.addEventListener('click',function(){if(open){open=false;dd.style.display='none';}});
+  dd.addEventListener('click',function(){open=false;dd.style.display='none';});
+})();
+</script>
 </body>
 </html>

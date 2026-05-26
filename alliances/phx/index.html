@@ -381,7 +381,8 @@ body {
     setText('dyn-spots', spots ? spots+' open' : '');
     setText('dyn-championship', d['Alliance Championship Tier']||'');
     if (d['Timestamp']) {
-      var ts = new Date(d['Timestamp']);
+      var parts = d['Timestamp'].split(' ')[0].split('/');
+      var ts = new Date(parts[2], parseInt(parts[1],10)-1, parseInt(parts[0],10));
       var mo = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
       var fmt = mo[ts.getMonth()]+' '+ts.getDate()+', '+ts.getFullYear();
       setText('dyn-timestamp', fmt);

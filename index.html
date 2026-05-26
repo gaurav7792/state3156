@@ -449,7 +449,81 @@ body {
 }
 .foot .accent { color: var(--purple); }
 
-/* ===== Sticky CTA mobile only ===== */
+/* ===== Bear times strip ===== */
+.bear-strip {
+  margin-top: 24px;
+}
+.bear-strip-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.bear-strip-header .label { color: var(--ink); }
+.bear-strip-header .note { font-size: 10px; color: var(--ink-4); }
+.bear-scroll {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+  padding-bottom: 4px;
+}
+.bear-scroll::-webkit-scrollbar { height: 4px; }
+.bear-scroll::-webkit-scrollbar-track { background: transparent; }
+.bear-scroll::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+.bear-card {
+  flex: 0 0 auto;
+  min-width: 88px;
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px 12px 10px;
+  text-decoration: none;
+  color: inherit;
+  scroll-snap-align: start;
+  transition: border-color .15s, background .15s;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.bear-card:hover { border-color: var(--purple); background: var(--bg-3); }
+.bear-card .ally-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--purple);
+  letter-spacing: 0.06em;
+}
+.bear-card .times {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.bear-card .time {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+.bear-card .utc {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  color: var(--ink-4);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+
 .sticky-cta {
   position: fixed; bottom: 0; left: 0; right: 0;
   background: linear-gradient(180deg, rgba(11,15,21,0) 0%, var(--bg) 30%);
@@ -472,7 +546,7 @@ body {
     </div>
     <div class="appbar-nav">
       <a href="/state3156/grip">Governance</a>
-      <a href="/state3156/tools">Tools</a>
+      
       <a href="/state3156/alliances">Alliances</a>
       <a href="/state3156/transfers">Transfers</a>
     </div>
@@ -647,6 +721,65 @@ body {
         <div class="label">Community Bear <span class="badge good">bi-weekly</span></div>
         <div class="value">10B+ <span style="font-size:14px;color:var(--ink-3);font-weight:500;letter-spacing:0.04em;">PB</span></div>
         <div class="sub">120B total damage</div>
+      </div>
+    </div>
+
+    <!-- Bear times strip -->
+    <div class="bear-strip">
+      <div class="bear-strip-header">
+        <span class="label">Bear Hunt Times</span>
+        <span class="note">UTC · tap for alliance →</span>
+      </div>
+      <div class="bear-scroll">
+        <a class="bear-card" href="/state3156/alliances/mad">
+          <span class="ally-tag">MAD</span>
+          <div class="times">
+            <span class="time">00:10</span>
+            <span class="time">18:30</span>
+          </div>
+          <span class="utc">UTC</span>
+        </a>
+        <a class="bear-card" href="/state3156/alliances/wld">
+          <span class="ally-tag">WLD</span>
+          <div class="times">
+            <span class="time">01:20</span>
+            <span class="time">20:00</span>
+          </div>
+          <span class="utc">UTC</span>
+        </a>
+        <a class="bear-card" href="/state3156/alliances/vks">
+          <span class="ally-tag">VKS</span>
+          <div class="times">
+            <span class="time">03:00</span>
+            <span class="time">20:30</span>
+          </div>
+          <span class="utc">UTC</span>
+        </a>
+        <a class="bear-card" href="/state3156/alliances/evl">
+          <span class="ally-tag">EVL</span>
+          <div class="times">
+            <span class="time">11:00</span>
+            <span class="time">21:00</span>
+          </div>
+          <span class="utc">UTC</span>
+        </a>
+        <a class="bear-card" href="/state3156/alliances/phx">
+          <span class="ally-tag">PHX</span>
+          <div class="times">
+            <span class="time">14:00</span>
+            <span class="time">18:00</span>
+            <span class="time">21:00</span>
+          </div>
+          <span class="utc">UTC</span>
+        </a>
+        <a class="bear-card" href="/state3156/alliances/hwz">
+          <span class="ally-tag">HWZ</span>
+          <div class="times">
+            <span class="time">15:00</span>
+            <span class="time">21:00</span>
+          </div>
+          <span class="utc">UTC</span>
+        </a>
       </div>
     </div>
   </section>

@@ -279,6 +279,7 @@ body {
   </a>
 </div>
 
+<script src="/state3156/config.js"></script>
 <script>
 (function() {
 
@@ -288,18 +289,9 @@ body {
   // ▲▲▲  THAT'S IT — everything else is automatic  ▲▲▲
   // ================================================================
 
-  var RESPONSES_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQ_VxCHHsvXBhyGTk_Z1WeIBLi2ZSRy1FN6Bjx_bUO75ZmouKsLXoTvWWKaca7nSwHWI2hRYZDhWdfu/pub?output=csv';
-  var ADMIN_CSV     = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR1_ldyyJYa_MiEYqN1xYsamcXiMweocftVJgEZg6TGR0QtLNN8zscNtIsjU_WkR4-k_JbDpn-jj6OW/pub?output=csv';
-
-  // Power rankings — update when leaderboard changes (MAY 25, 2026)
-  var POWER_RANKS = {
-    WLD: { rank: 1, power: '19.1B' },
-    PHX: { rank: 2, power: '15.9B' },
-    VKS: { rank: 3, power: '15.7B' },
-    EVL: { rank: 4, power: '14.7B' },
-    HWZ: { rank: 5, power: '10.4B' },
-    MAD: { rank: 6, power:  '8.0B' }
-  };
+  var RESPONSES_CSV = STATE3156_CONFIG.RESPONSES_CSV;
+  var ADMIN_CSV     = STATE3156_CONFIG.ADMIN_CSV;
+  var POWER_RANKS   = STATE3156_CONFIG.POWER_RANKS;
 
   function parseCSV(text) {
     var rows = [], row = [], field = '', inQuotes = false;
@@ -437,23 +429,62 @@ body {
     show('live-badge');
   }
 
-  // Fetch both CSVs in parallel
-  Promise.all([
-    fetch(ADMIN_CSV).then(function(r){return r.text();}),
-    fetch(RESPONSES_CSV).then(function(r){return r.text();})
-  ]).then(function(res) {
-    // Check published
-    var admin = toObjects(parseCSV(res[0]));
-    var row = admin.find(function(r){ return r['Alliance Tag']&&r['Alliance Tag'].trim().toUpperCase()===ALLIANCE_TAG; });
-    if (!row || row['Published'].toString().toUpperCase()!=='TRUE') {
-      console.log(ALLIANCE_TAG+' not published yet.'); return;
-    }
-    // Get most recent response
-    var responses = toObjects(parseCSV(res[1]));
-    var matches = responses.filter(function(r){ return r['Alliance Tag *']&&r['Alliance Tag *'].trim().toUpperCase()===ALLIANCE_TAG; });
-    if (!matches.length) { console.log('No response for '+ALLIANCE_TAG); return; }
-    apply(matches[matches.length-1]);
-  }).catch(function(e){ console.warn('Fetch failed, using static fallback.', e); });
+  // Fetch responses directly
+  fetch(RESPONSES_CSV)
+    .then(function(r){ return r.text(); })
+    .then(function(text) {
+      var responses = toObjects(parseCSV(text));
+      var matches = responses.filter(function(r){
+        return r['Alliance Tag *'] && r['Alliance Tag *'].trim().toUpperCase() === ALLIANCE_TAG;
+      });
+      if (!matches.length) { console.log('No response found for '+ALLIANCE_TAG); return; }
+      apply(matches[matches.length-1]);
+    })
+    .catch(function(e){ console.warn('Fetch failed:', e); });
+
+  // ── Mobile menu ──────────────────────────────────────────────────
+  (function() {
+    var btn = document.querySelector('.menu-btn');
+    var nav = document.querySelector('.appbar-nav');
+    if (!btn || !nav) return;
+
+    // Clone nav for mobile dropdown
+    var dropdown = nav.cloneNode(true);
+    dropdown.style.cssText = [
+      'display:none',
+      'position:fixed',
+      'top:58px',
+      'left:12px',
+      'right:12px',
+      'background:#11161f',
+      'border:1px solid #232a37',
+      'border-radius:8px',
+      'padding:8px',
+      'z-index:100',
+      'flex-direction:column',
+      'gap:4px',
+      'box-shadow:0 8px 32px rgba(0,0,0,0.4)'
+    ].join(';');
+    document.body.appendChild(dropdown);
+
+    var open = false;
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      open = !open;
+      dropdown.style.display = open ? 'flex' : 'none';
+      btn.setAttribute('aria-expanded', open);
+    });
+
+    document.addEventListener('click', function() {
+      if (open) { open = false; dropdown.style.display = 'none'; }
+    });
+
+    dropdown.addEventListener('click', function() {
+      open = false; dropdown.style.display = 'none';
+    });
+  })();
+
+})();
 
 })();
 </script>

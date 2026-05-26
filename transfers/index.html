@@ -8,46 +8,102 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#0b0f15;--bg-2:#11161f;--bg-3:#161c27;--bg-hover:#1a212e;--border:#232a37;--border-soft:#1a212e;--ink:#e6e9ef;--ink-2:#a3acbb;--ink-3:#6a7484;--green:#34d399;--green-dim:rgba(52,211,153,0.12);--purple:#a855f7;}
-*{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5;font-size:15px;-webkit-font-smoothing:antialiased;background-image:radial-gradient(circle at 1px 1px,rgba(255,255,255,0.025) 1px,transparent 0);background-size:24px 24px;}
-.wrap{width:100%;max-width:1200px;margin:0 auto;padding:16px 16px 64px;}
-@media(min-width:700px){.wrap{padding:20px 24px 80px;}}
-.appbar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 14px;background:var(--bg-2);border:1px solid var(--border);border-radius:8px;margin-bottom:14px;}
-.appbar-left{display:flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;color:var(--ink);}
-.state-id{background:linear-gradient(90deg,var(--purple) 0%,#c084fc 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-weight:700;}
-.logo-mark{width:24px;height:24px;border:1.5px solid var(--purple);border-radius:5px;display:inline-flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:var(--purple);flex-shrink:0;box-shadow:0 0 12px rgba(168,85,247,0.25);text-decoration:none;}
-.appbar-nav{display:none;gap:4px;}
-@media(min-width:700px){.appbar-nav{display:flex;}}
-.appbar-nav a{font-size:13px;font-weight:500;color:var(--ink-2);text-decoration:none;padding:6px 10px;border-radius:5px;transition:background .15s,color .15s;}
-.appbar-nav a:hover,.appbar-nav a.active{color:var(--purple);}
-.appbar-right{display:flex;align-items:center;gap:10px;}
-.status-pill{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;background:var(--green-dim);border:1px solid rgba(52,211,153,0.3);border-radius:999px;font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:600;color:var(--green);}
-.status-dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:pulse 2s ease-in-out infinite;}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
-.menu-btn{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;background:transparent;border:1px solid var(--border);border-radius:6px;color:var(--ink-2);cursor:pointer;}
-@media(min-width:700px){.menu-btn{display:none;}}
-.coming-soon{margin:80px auto;max-width:480px;text-align:center;}
-.coming-soon .ico{font-family:'JetBrains Mono',monospace;font-size:36px;color:var(--purple);margin-bottom:20px;}
-.coming-soon h2{font-size:24px;font-weight:700;color:var(--ink);margin-bottom:10px;letter-spacing:-0.02em;}
-.coming-soon p{font-size:15px;color:var(--ink-2);line-height:1.6;margin-bottom:28px;}
-.back{display:inline-flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.1em;color:var(--ink-3);text-decoration:none;text-transform:uppercase;transition:color .15s;}
-.back:hover{color:var(--purple);}
-.foot{margin-top:48px;padding-top:16px;border-top:1px solid var(--border-soft);font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-3);display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;}
-.foot .accent{color:var(--purple);}
-.foot a{color:var(--ink-3);text-decoration:none;}
-.foot a:hover{color:var(--purple);}
-.sticky-cta{position:fixed;bottom:0;left:0;right:0;background:linear-gradient(180deg,rgba(11,15,21,0) 0%,var(--bg) 30%);padding:16px 14px calc(14px + env(safe-area-inset-bottom));z-index:50;}
-.sticky-cta .btn{width:100%;}
-@media(min-width:700px){.sticky-cta{display:none;}}
-@media(max-width:699.98px){body{padding-bottom:90px;}}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 18px;font-family:'Inter',sans-serif;font-weight:600;font-size:14px;text-decoration:none;border-radius:7px;border:1px solid transparent;cursor:pointer;transition:all .15s ease;min-height:44px;}
-.btn-primary{background:var(--green);color:#052e1f;border-color:var(--green);box-shadow:0 0 0 1px rgba(52,211,153,0.2),0 6px 16px -8px rgba(52,211,153,0.45);}
-.btn-primary:hover{background:#2bc28a;border-color:#2bc28a;}
+:root {
+  --bg: #0b0f15; --bg-2: #11161f; --bg-3: #161c27; --bg-hover: #1a212e;
+  --border: #232a37; --border-soft: #1a212e;
+  --ink: #e6e9ef; --ink-2: #a3acbb; --ink-3: #6a7484; --ink-4: #4a5462;
+  --green: #34d399; --green-dim: rgba(52,211,153,0.12);
+  --amber: #fbbf24; --amber-dim: rgba(251,191,36,0.10);
+  --purple: #a855f7; --purple-dim: rgba(168,85,247,0.12);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: var(--bg); color: var(--ink);
+  line-height: 1.5; font-size: 15px;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+  background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.025) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+.wrap { width: 100%; max-width: 860px; margin: 0 auto; padding: 16px 16px 64px; }
+@media (min-width: 700px) { .wrap { padding: 20px 24px 80px; } }
+.appbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 14px; background: var(--bg-2); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 14px; }
+.appbar-left { display: flex; align-items: center; gap: 10px; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; color: var(--ink); }
+.appbar-left .state-id { background: linear-gradient(90deg, var(--purple) 0%, #c084fc 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; font-weight: 700; }
+.logo-mark { width: 24px; height: 24px; border: 1.5px solid var(--purple); border-radius: 5px; display: inline-flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; color: var(--purple); flex-shrink: 0; box-shadow: 0 0 12px rgba(168,85,247,0.25); text-decoration: none; }
+.appbar-nav { display: none; gap: 4px; }
+@media (min-width: 700px) { .appbar-nav { display: flex; } }
+.appbar-nav a { font-size: 13px; font-weight: 500; color: var(--ink-2); text-decoration: none; padding: 6px 10px; border-radius: 5px; transition: background .15s, color .15s; }
+.appbar-nav a:hover { background: var(--bg-hover); color: var(--ink); }
+.appbar-nav a.active { color: var(--purple); }
+.appbar-right { display: flex; align-items: center; gap: 10px; }
+.status-pill { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; background: var(--green-dim); border: 1px solid rgba(52,211,153,0.3); border-radius: 999px; font-family: 'JetBrains Mono', monospace; font-size: 10.5px; font-weight: 600; letter-spacing: 0.02em; color: var(--green); }
+.status-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px var(--green); animation: pulse 2s ease-in-out infinite; }
+@keyframes pulse { 0%,100%{opacity:1}50%{opacity:.5} }
+.menu-btn { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; background: transparent; border: 1px solid var(--border); border-radius: 6px; color: var(--ink-2); cursor: pointer; }
+@media (min-width: 700px) { .menu-btn { display: none; } }
+.page-header { padding: 28px 0 24px; border-bottom: 1px solid var(--border-soft); margin-bottom: 32px; }
+.page-header .eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.1em; color: var(--ink-3); text-transform: uppercase; margin-bottom: 10px; }
+.page-header .eyebrow .accent { color: var(--purple); }
+.page-header h1 { font-family: 'Inter', sans-serif; font-weight: 700; font-size: clamp(26px, 5vw, 38px); line-height: 1.1; letter-spacing: -0.025em; color: var(--ink); margin-bottom: 8px; }
+.page-header .dek { font-size: 15px; color: var(--ink-2); line-height: 1.6; max-width: 58ch; }
+.sections { display: flex; flex-direction: column; gap: 12px; }
+.section { background: var(--bg-2); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+.section-head { display: flex; align-items: center; gap: 10px; padding: 13px 18px; border-bottom: 1px solid var(--border-soft); background: var(--bg-3); }
+.section-head .prompt { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; color: var(--purple); flex-shrink: 0; }
+.section-head .title { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); }
+.section-body { padding: 20px 22px; display: flex; flex-direction: column; gap: 16px; }
+.prose { font-size: 15px; line-height: 1.7; color: var(--ink-2); }
+.prose strong { color: var(--ink); font-weight: 600; }
+.prose a { color: var(--purple); text-decoration: none; border-bottom: 1px solid rgba(168,85,247,0.3); transition: border-color .15s; }
+.prose a:hover { border-bottom-color: var(--purple); }
+.check-list { display: flex; flex-direction: column; gap: 8px; }
+.check-item { display: flex; align-items: flex-start; gap: 12px; padding: 10px 14px; background: var(--bg-3); border: 1px solid var(--border-soft); border-radius: 7px; }
+.check-item .bullet { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; color: var(--green); flex-shrink: 0; margin-top: 2px; }
+.check-item .text { font-size: 14px; color: var(--ink-2); line-height: 1.55; }
+.check-item .text strong { color: var(--ink); font-weight: 600; }
+.phases { display: flex; flex-direction: column; gap: 10px; }
+.phase { display: flex; gap: 14px; align-items: flex-start; padding: 14px 16px; background: var(--bg-3); border: 1px solid var(--border-soft); border-radius: 8px; }
+.phase-num { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; color: var(--purple); background: var(--purple-dim); border: 1px solid rgba(168,85,247,0.3); padding: 2px 8px; border-radius: 4px; flex-shrink: 0; white-space: nowrap; }
+.phase-body { display: flex; flex-direction: column; gap: 4px; }
+.phase-body .phase-title { font-size: 14px; font-weight: 600; color: var(--ink); }
+.phase-body .phase-desc { font-size: 13.5px; color: var(--ink-2); line-height: 1.55; }
+.phase-body .phase-desc strong { color: var(--ink); font-weight: 600; }
+.steps { display: flex; flex-direction: column; gap: 10px; }
+.step { display: flex; gap: 14px; align-items: flex-start; }
+.step-num { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700; color: var(--purple); flex-shrink: 0; width: 22px; }
+.step-body { display: flex; flex-direction: column; gap: 3px; }
+.step-body .step-title { font-size: 14px; font-weight: 600; color: var(--ink); }
+.step-body .step-desc { font-size: 13.5px; color: var(--ink-2); line-height: 1.55; }
+.step-body .step-desc strong { color: var(--ink); font-weight: 600; }
+.step-body .step-desc a { color: var(--purple); text-decoration: none; }
+.invite-cards { display: flex; flex-direction: column; gap: 12px; }
+@media (min-width: 600px) { .invite-cards { flex-direction: row; } }
+.invite-card { flex: 1; background: var(--bg-3); border: 1px solid var(--border-soft); border-radius: 8px; padding: 16px 18px; display: flex; flex-direction: column; gap: 8px; }
+.invite-card .type { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-3); }
+.invite-card h3 { font-size: 16px; font-weight: 700; color: var(--ink); letter-spacing: -0.01em; }
+.invite-card p { font-size: 13.5px; color: var(--ink-2); line-height: 1.6; }
+.invite-card p strong { color: var(--ink); font-weight: 600; }
+.invite-card p a { color: var(--purple); text-decoration: none; border-bottom: 1px solid rgba(168,85,247,0.3); }
+.invite-card .note { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-3); padding-top: 8px; border-top: 1px solid var(--border-soft); }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 18px; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 14px; text-decoration: none; border-radius: 7px; border: 1px solid transparent; cursor: pointer; transition: all .15s ease; min-height: 44px; }
+.btn-primary { background: var(--green); color: #052e1f; border-color: var(--green); box-shadow: 0 0 0 1px rgba(52,211,153,0.2), 0 6px 16px -8px rgba(52,211,153,0.45); }
+.btn-primary:hover { background: #2bc28a; border-color: #2bc28a; }
+.foot { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--border-soft); font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-3); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; }
+.foot .accent { color: var(--purple); }
+.foot a { color: var(--ink-3); text-decoration: none; }
+.foot a:hover { color: var(--purple); }
+.sticky-cta { position: fixed; bottom: 0; left: 0; right: 0; background: linear-gradient(180deg, rgba(11,15,21,0) 0%, var(--bg) 30%); padding: 16px 14px calc(14px + env(safe-area-inset-bottom)); z-index: 50; }
+.sticky-cta .btn { width: 100%; }
+@media (min-width: 700px) { .sticky-cta { display: none; } }
+@media (max-width: 699.98px) { body { padding-bottom: 90px; } }
 </style>
 </head>
 <body>
 <div class="wrap">
+
   <nav class="appbar">
     <div class="appbar-left">
       <a href="/state3156/" class="logo-mark">3156</a>
@@ -57,7 +113,7 @@ body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var
       <a href="/state3156/grip">Governance</a>
       <a href="/state3156/tools">Tools</a>
       <a href="/state3156/alliances">Alliances</a>
-      <a href="/state3156/transfers">Transfers</a>
+      <a href="/state3156/transfers" class="active">Transfers</a>
     </div>
     <div class="appbar-right">
       <span class="status-pill"><span class="status-dot"></span>RECRUITING</span>
@@ -66,26 +122,226 @@ body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var
       </button>
     </div>
   </nav>
-  <div class="coming-soon">
-    <div class="ico">&gt;_</div>
-    <h2>Transfers</h2>
-    <p>This page is being built. Check back soon, or join the Discord to get the information directly.</p>
-    <a class="back" href="/state3156/">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
-      Back to state home
-    </a>
+
+  <div class="page-header">
+    <div class="eyebrow"><span class="accent">state-3156</span> / transfers</div>
+    <h1>So you want to move in.</h1>
+    <p class="dek">Great taste. Here's everything you need to know before showing up with your troops and your opinions about troop ratios.</p>
   </div>
+
+  <div class="sections">
+
+    <!-- Eligibility -->
+    <div class="section">
+      <div class="section-head"><span class="prompt">&gt;_</span><span class="title">Are you eligible?</span></div>
+      <div class="section-body">
+        <p class="prose">Quick sanity check before you get too excited:</p>
+        <div class="check-list">
+          <div class="check-item">
+            <span class="bullet">✓</span>
+            <span class="text">You're in <strong>Group 14</strong> — state number between <strong>#3114 and #3315</strong></span>
+          </div>
+          <div class="check-item">
+            <span class="bullet">✓</span>
+            <span class="text">You meet the <strong>power cap</strong> for the current event — not sure what it is? Ask in Discord, we don't bite</span>
+          </div>
+          <div class="check-item">
+            <span class="bullet">✓</span>
+            <span class="text">It's been at least <strong>25 days</strong> since your last transfer — no state-hopping</span>
+          </div>
+        </div>
+        <p class="prose">Three for three? Keep reading.</p>
+      </div>
+    </div>
+
+    <!-- How it works -->
+    <div class="section">
+      <div class="section-head"><span class="prompt">&gt;_</span><span class="title">How it works</span></div>
+      <div class="section-body">
+        <p class="prose">The transfer window runs for about a week in three phases. You mostly just need to know about Phase 2, but here's the full picture:</p>
+        <div class="phases">
+          <div class="phase">
+            <span class="phase-num">Phase 1</span>
+            <div class="phase-body">
+              <div class="phase-title">Pre-Transfer · 3 days</div>
+              <div class="phase-desc">We're doing admin. Setting the power cap, figuring out who's coming in. If you've already chatted with an alliance leader, they're putting your name in the hat right now. Go touch some grass.</div>
+            </div>
+          </div>
+          <div class="phase">
+            <span class="phase-num">Phase 2</span>
+            <div class="phase-body">
+              <div class="phase-title">Invitational · 2 days</div>
+              <div class="phase-desc">This is the one that matters. If an alliance has vouched for you, your invite lands here. When it does — leave your current alliance, sort out your Enlistment Office if needed, and accept. <strong>Don't leave it sitting.</strong> Invites have a window and we're not going to chase you.</div>
+            </div>
+          </div>
+          <div class="phase">
+            <span class="phase-num">Phase 3</span>
+            <div class="phase-body">
+              <div class="phase-title">Open Transfer · 2 days</div>
+              <div class="phase-desc">No invite needed. Meet the power cap, spot's available, you're in. First come, first served. Set an alarm.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Getting an invite -->
+    <div class="section">
+      <div class="section-head"><span class="prompt">&gt;_</span><span class="title">Getting an invite</span></div>
+      <div class="section-body">
+        <p class="prose">Two flavours. Most people come in on an ordinary invite.</p>
+        <div class="invite-cards">
+          <div class="invite-card">
+            <div class="type">Most common</div>
+            <h3>Ordinary invite</h3>
+            <p>Find an alliance you like, talk to their R4 or R5, don't be weird about it. If they want you, they submit your name to the President. No vote, no tribunal, no essay — just meet the power cap and show up.</p>
+            <p>Not sure which alliance fits? <a href="/state3156/alliances">Browse the alliances and find your people →</a></p>
+          </div>
+          <div class="invite-card">
+            <div class="type">Top tier</div>
+            <h3>Special invite</h3>
+            <p>For the genuinely exceptional. Typically you'd need to be top 10 on both our <strong>Labyrinth leaderboard</strong> and our <strong>Hero Power leaderboard</strong> at the same time.</p>
+            <p>That said — special invites are handled case by case, not by checklist. Even if you're not quite in our top 10, reach out to an R4 or R5 anyway. We've made exceptions before. We'll do it again. Just make a good case for yourself.</p>
+            <div class="note">Special invite requests go through a vote. It's a shared resource, so everyone gets a say.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Group transfer 10+ -->
+    <div class="section">
+      <div class="section-head"><span class="prompt">&gt;_</span><span class="title">Moving in as a group (10+)</span></div>
+      <div class="section-body">
+        <p class="prose">Want to move your entire band of friends? We love the energy.</p>
+        <p class="prose">It's straightforward if you're upfront and willing to work with us on the logistics. Every alliance gets 5 invites per transfer event, so we'll work together to get everyone in as smoothly as possible. Some of your group will come in during Phase 2, others via Phase 3 — and if your group is large, we'll work to get everyone across as quickly as we can.</p>
+        <p class="prose">It's not instant, but it works.</p>
+        <div class="steps">
+          <div class="step">
+            <span class="step-num">01</span>
+            <div class="step-body">
+              <div class="step-title">Explore our alliances</div>
+              <div class="step-desc">Browse what's available, check the bear times, see what fits your timezone and vibe. <a href="/state3156/alliances">View alliances →</a></div>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-num">02</span>
+            <div class="step-body">
+              <div class="step-title">Find an alliance that works for you</div>
+              <div class="step-desc">Talk to their R4s and R5s, make a few new friends before you arrive. The more people who know you're coming, the smoother it goes.</div>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-num">03</span>
+            <div class="step-body">
+              <div class="step-title">Be willing to work with us</div>
+              <div class="step-desc">Some flexibility goes a long way as we sort the invites across alliances.</div>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-num">04</span>
+            <div class="step-body">
+              <div class="step-title">Move in and get stuck in</div>
+              <div class="step-desc">Be active, show up for events, and have fun. The game's better with friends.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Alliance transfer -->
+    <div class="section">
+      <div class="section-head"><span class="prompt">&gt;_</span><span class="title">Transferring your entire alliance?</span></div>
+      <div class="section-body">
+        <p class="prose">Now we're talking. Bigger lift, but the door is open.</p>
+        <p class="prose">Fair warning: an alliance transfer goes through a vote across all our alliances. Everyone needs to be on board — that's not bureaucracy, that's just how a healthy state works.</p>
+        <div class="steps">
+          <div class="step">
+            <span class="step-num">01</span>
+            <div class="step-body">
+              <div class="step-title">Show up early and introduce yourselves</div>
+              <div class="step-desc">Contact the President or an R4/R5 from any alliance. The transfer window is not the time to make a first impression.</div>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-num">02</span>
+            <div class="step-body">
+              <div class="step-title">Get settled in the meantime</div>
+              <div class="step-desc"><strong>TOO</strong> and <strong>RED</strong> are our SvS alliances. Create a farm there, get to know the state, and see how we operate. Think of them as your hotel while you scout apartments. No obligation, no pressure — just a good way to figure out if we're the right fit before you fully commit.</div>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-num">03</span>
+            <div class="step-body">
+              <div class="step-title">Have a look around</div>
+              <div class="step-desc">We prioritize filling our existing alliances first. Chances are some of your group fits somewhere already. Talk to people. <a href="/state3156/alliances">Browse the alliances →</a></div>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-num">04</span>
+            <div class="step-body">
+              <div class="step-title">If the fit is real</div>
+              <div class="step-desc">And you genuinely see yourselves as part of this state long-term — reach out to the President via the <a href="https://discord.gg/u423WPcS" target="_blank" rel="noopener">state Discord →</a> They'll bring it to governance.</div>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-num">05</span>
+            <div class="step-body">
+              <div class="step-title">Once approved — we commit fully</div>
+              <div class="step-desc">We'll sort the invites, find you a shell alliance, and help build your tech up. We don't half-commit.</div>
+            </div>
+          </div>
+        </div>
+        <p class="prose" style="margin-top:4px;">The golden rule: <strong>reach out well before the transfer window.</strong> A last-minute alliance transfer request is a great way to stress everyone out, including yourself.</p>
+      </div>
+    </div>
+
+    <!-- What to do now -->
+    <div class="section">
+      <div class="section-head"><span class="prompt">&gt;_</span><span class="title">What to do right now</span></div>
+      <div class="section-body">
+        <div class="steps">
+          <div class="step">
+            <span class="step-num">01</span>
+            <div class="step-body">
+              <div class="step-title">Find your alliance</div>
+              <div class="step-desc">Browse the alliances, find one that fits your timezone, playstyle, and vibe. <a href="/state3156/alliances">View alliances →</a></div>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-num">02</span>
+            <div class="step-body">
+              <div class="step-title">Say hi to an R4 or R5</div>
+              <div class="step-desc">They'll confirm the power cap and get your name in. The earlier the better.</div>
+            </div>
+          </div>
+          <div class="step">
+            <span class="step-num">03</span>
+            <div class="step-body">
+              <div class="step-title">Special invite or alliance transfer?</div>
+              <div class="step-desc">Reach out to the President directly via the <a href="https://discord.gg/u423WPcS" target="_blank" rel="noopener">state Discord →</a></div>
+            </div>
+          </div>
+        </div>
+        <p class="prose" style="margin-top: 4px;">That's it. See you on the other side.</p>
+      </div>
+    </div>
+
+  </div>
+
   <div class="foot">
     <span><a href="/state3156/"><span class="accent">state-3156</span></a> · transfers</span>
-    <span>coming soon</span>
+    <span>group 14 · #3114–#3315</span>
   </div>
+
 </div>
+
 <div class="sticky-cta">
-  <a class="btn btn-primary" href="https://discord.gg/u423WPcS">
-    Join the State Discord
+  <a class="btn btn-primary" href="/state3156/alliances">
+    Browse alliances
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
   </a>
 </div>
+
 <script>
 (function(){
   var btn=document.querySelector('.menu-btn');
@@ -100,5 +356,6 @@ body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var
   dd.addEventListener('click',function(){open=false;dd.style.display='none';});
 })();
 </script>
+
 </body>
 </html>

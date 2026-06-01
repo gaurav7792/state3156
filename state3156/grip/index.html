@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GRIP — State 3156</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0b0f15; --bg-2: #11161f; --bg-3: #161c27; --bg-hover: #1a212e;
+  --border: #232a37; --border-soft: #1a212e;
+  --ink: #e6e9ef; --ink-2: #a3acbb; --ink-3: #6a7484; --ink-4: #4a5462;
+  --green: #34d399; --green-dim: rgba(52,211,153,0.12);
+  --amber: #fbbf24; --amber-dim: rgba(251,191,36,0.10);
+  --red: #f87171; --red-dim: rgba(248,113,113,0.14);
+  --purple: #a855f7; --purple-dim: rgba(168,85,247,0.12);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg); color: var(--ink); line-height: 1.5; font-size: 15px; -webkit-font-smoothing: antialiased; -webkit-tap-highlight-color: transparent; background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.025) 1px, transparent 0); background-size: 24px 24px; }
+.wrap { width: 100%; max-width: 900px; margin: 0 auto; padding: 16px 16px 64px; }
+@media (min-width: 700px) { .wrap { padding: 20px 24px 80px; } }
+@media (min-width: 1000px) { .wrap { padding: 24px 32px 80px; } }
+
+/* App bar */
+.appbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 14px; background: var(--bg-2); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 14px; }
+.appbar-left { display: flex; align-items: center; gap: 10px; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; color: var(--ink); }
+.appbar-left .state-id { background: linear-gradient(90deg, var(--purple) 0%, #c084fc 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; font-weight: 700; }
+.logo-mark { width: 24px; height: 24px; border: 1.5px solid var(--purple); border-radius: 5px; display: inline-flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; color: var(--purple); flex-shrink: 0; box-shadow: 0 0 12px rgba(168,85,247,0.25); text-decoration: none; }
+.appbar-nav { display: none; gap: 4px; }
+@media (min-width: 700px) { .appbar-nav { display: flex; } }
+.appbar-nav a { font-size: 13px; font-weight: 500; color: var(--ink-2); text-decoration: none; padding: 6px 10px; border-radius: 5px; transition: background .15s, color .15s; }
+.appbar-nav a:hover { background: var(--bg-hover); color: var(--ink); }
+.appbar-nav a.active { color: var(--purple); }
+.appbar-right { display: flex; align-items: center; gap: 10px; }
+.status-pill { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; background: var(--green-dim); border: 1px solid rgba(52,211,153,0.3); border-radius: 999px; font-family: 'JetBrains Mono', monospace; font-size: 10.5px; font-weight: 600; letter-spacing: 0.02em; color: var(--green); }
+.status-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px var(--green); animation: pulse 2s ease-in-out infinite; }
+@keyframes pulse { 0%,100%{opacity:1}50%{opacity:.5} }
+.menu-btn { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; background: transparent; border: 1px solid var(--border); border-radius: 6px; color: var(--ink-2); cursor: pointer; }
+@media (min-width: 700px) { .menu-btn { display: none; } }
+
+/* Page header */
+.page-header { padding: 32px 0 28px; border-bottom: 1px solid var(--border-soft); margin-bottom: 36px; }
+.page-header .eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.1em; color: var(--ink-3); text-transform: uppercase; margin-bottom: 12px; }
+.page-header .eyebrow .accent { color: var(--purple); }
+.page-header h1 { font-family: 'Inter', sans-serif; font-weight: 700; font-size: clamp(28px, 5vw, 40px); line-height: 1.1; letter-spacing: -0.025em; color: var(--ink); margin-bottom: 12px; }
+.page-header .dek { font-size: 16px; line-height: 1.6; color: var(--ink-2); max-width: 60ch; }
+.page-header .meta { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 16px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-3); letter-spacing: 0.06em; }
+.page-header .meta .item { display: inline-flex; align-items: center; gap: 6px; }
+.page-header .meta .val { color: var(--ink); font-weight: 600; }
+
+/* Doc sections */
+.doc { display: flex; flex-direction: column; gap: 32px; }
+
+.section-block { background: var(--bg-2); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+
+.section-block .section-head { padding: 16px 20px 14px; border-bottom: 1px solid var(--border-soft); display: flex; align-items: baseline; gap: 12px; }
+.section-block .section-num { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; color: var(--purple); letter-spacing: 0.08em; flex-shrink: 0; }
+.section-block .section-title { font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 700; color: var(--ink); letter-spacing: -0.01em; }
+
+.section-block .section-body { padding: 18px 20px; display: flex; flex-direction: column; gap: 14px; }
+
+.prose { font-size: 14.5px; line-height: 1.65; color: var(--ink-2); }
+.prose strong { color: var(--ink); font-weight: 600; }
+
+.rule-list { display: flex; flex-direction: column; gap: 10px; }
+.rule-item { display: flex; gap: 12px; align-items: flex-start; }
+.rule-item .bullet { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--purple); flex-shrink: 0; margin-top: 4px; font-weight: 700; }
+.rule-item .text { font-size: 14px; line-height: 1.6; color: var(--ink-2); }
+.rule-item .text strong { color: var(--ink); font-weight: 600; }
+
+.penalty-steps { display: flex; flex-direction: column; gap: 8px; }
+.penalty-step { display: flex; align-items: flex-start; gap: 12px; padding: 10px 14px; background: var(--bg-3); border-radius: 6px; border: 1px solid var(--border-soft); }
+.penalty-step .num { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; color: var(--ink-3); flex-shrink: 0; min-width: 20px; }
+.penalty-step .txt { font-size: 13.5px; color: var(--ink-2); line-height: 1.5; }
+.penalty-step:last-child .num { color: var(--red); }
+.penalty-step:last-child .txt { color: var(--ink); }
+
+.callout { padding: 14px 18px; border-left: 2px solid var(--purple); background: var(--purple-dim); border-radius: 0 6px 6px 0; font-size: 14px; color: var(--ink-2); line-height: 1.6; }
+.callout strong { color: var(--ink); }
+
+.tag-row { display: flex; flex-wrap: wrap; gap: 8px; }
+.tag { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 4px; background: var(--bg-3); border: 1px solid var(--border); color: var(--ink-2); }
+.tag.active { background: var(--green-dim); border-color: rgba(52,211,153,0.3); color: var(--green); }
+
+/* Footer */
+.foot { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--border-soft); font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-3); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; }
+.foot .accent { color: var(--purple); }
+.foot a { color: var(--ink-3); text-decoration: none; }
+.foot a:hover { color: var(--purple); }
+
+/* Sticky CTA */
+.sticky-cta { position: fixed; bottom: 0; left: 0; right: 0; background: linear-gradient(180deg, rgba(11,15,21,0) 0%, var(--bg) 30%); padding: 16px 14px calc(14px + env(safe-area-inset-bottom)); z-index: 50; }
+.sticky-cta .btn { width: 100%; }
+@media (min-width: 700px) { .sticky-cta { display: none; } }
+@media (max-width: 699.98px) { body { padding-bottom: 90px; } }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 18px; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 14px; text-decoration: none; border-radius: 7px; border: 1px solid transparent; cursor: pointer; transition: all .15s ease; min-height: 44px; }
+.btn-primary { background: var(--green); color: #052e1f; border-color: var(--green); box-shadow: 0 0 0 1px rgba(52,211,153,0.2), 0 6px 16px -8px rgba(52,211,153,0.45); }
+.btn-primary:hover { background: #2bc28a; border-color: #2bc28a; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <nav class="appbar">
+    <div class="appbar-left">
+      <a href="/state3156/" class="logo-mark">3156</a>
+      <span class="state-id">state-3156</span>
+    </div>
+    <div class="appbar-nav">
+      <a href="/state3156/grip" class="active">Governance</a>
+      
+      <a href="/state3156/alliances">Alliances</a>
+      <a href="/state3156/transfers">Transfers</a>
+    </div>
+    <div class="appbar-right">
+      <span class="status-pill"><span class="status-dot"></span>RECRUITING</span>
+      <button class="menu-btn" aria-label="Menu">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+    </div>
+  </nav>
+
+  <header class="page-header">
+    <div class="eyebrow"><span class="accent">state-3156</span> / governance</div>
+    <h1>GRIP</h1>
+    <p class="dek">Governing Rules for Interalliance Partnership. The state's operating principles — written down, enforced, and updated when we get it wrong.</p>
+    <div class="meta">
+      <span class="item">Version <span class="val">1.0</span></span>
+      <span class="item">Updated <span class="val">APR 17, 2026</span></span>
+    </div>
+  </header>
+
+  <div class="doc">
+
+    <!-- Purpose -->
+    <div class="section-block">
+      <div class="section-head">
+        <span class="section-num">//&nbsp;00</span>
+        <span class="section-title">Why GRIP exists</span>
+      </div>
+      <div class="section-body">
+        <p class="prose">GRIP provides structure, stability, and long-term competitiveness for state 3156. It exists because coordination at scale requires rules that don't depend on everyone being in the same room.</p>
+        <div class="rule-list">
+          <div class="rule-item"><span class="bullet">&gt;_</span><span class="text">Establish and rotate Presidency in a fair and predictable manner</span></div>
+          <div class="rule-item"><span class="bullet">&gt;_</span><span class="text">Manage state transfers and integration of incoming players and alliances</span></div>
+          <div class="rule-item"><span class="bullet">&gt;_</span><span class="text">Allocate Forts and Strongholds across member alliances</span></div>
+          <div class="rule-item"><span class="bullet">&gt;_</span><span class="text">Protect the state from rogue actors and internal destabilization</span></div>
+        </div>
+        <div class="callout"><strong>Operating philosophy:</strong> The spirit of the rules + basic logic governs all cases. This is not early game — baseline competence is expected. No bad-faith arguments entertained.</div>
+      </div>
+    </div>
+
+    <!-- Membership -->
+    <div class="section-block">
+      <div class="section-head">
+        <span class="section-num">//&nbsp;01</span>
+        <span class="section-title">Membership framework</span>
+      </div>
+      <div class="section-body">
+        <div class="rule-list">
+          <div class="rule-item"><span class="bullet">&gt;_</span><span class="text">Any alliance may apply for GRIP membership through formal declaration</span></div>
+          <div class="rule-item"><span class="bullet">&gt;_</span><span class="text"><strong>Provisional membership</strong> is granted upon meeting the SvS performance threshold (500M points) in the upcoming cycle</span></div>
+          <div class="rule-item"><span class="bullet">&gt;_</span><span class="text"><strong>Full membership</strong> requires maintaining the SvS point requirement and demonstrating consistent adherence to GRIP rules and conduct</span></div>
+          <div class="rule-item"><span class="bullet">&gt;_</span><span class="text">State transfers, alliance entry/exit, or structural changes must be declared in advance — these may impact protection status, structure eligibility, and presidency consideration</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Rules of engagement -->
+    <div class="section-block">
+      <div class="section-head">
+        <span class="section-num">//&nbsp;02</span>
+        <span class="section-title">Rules of engagement</span>
+      </div>
+      <div class="section-body">
+
+        <p class="prose" style="font-weight:600;color:var(--ink);">Protected Play</p>
+        <div class="rule-list">
+          <div class="rule-item"><span class="bullet">—</span><span class="text">GRIP alliances and their academies may not attack, scout, burn, or interfere with cities, banners, or normal resource activity outside of sanctioned events</span></div>
+        </div>
+
+        <p class="prose" style="font-weight:600;color:var(--ink);margin-top:8px;">Fair Structure Competition</p>
+        <div class="rule-list">
+          <div class="rule-item"><span class="bullet">—</span><span class="text">Facilities remain FFA, open competition unless explicitly assigned. No duplicate holding.</span></div>
+          <div class="rule-item"><span class="bullet">—</span><span class="text">Forts and Strongholds must follow agreed ownership or rotation</span></div>
+          <div class="rule-item"><span class="bullet">—</span><span class="text">Prohibited: reward theft, outside stacking or roster manipulation, capturing Forts / Strongholds for another alliance</span></div>
+        </div>
+
+        <p class="prose" style="font-weight:600;color:var(--ink);margin-top:8px;">State before politics</p>
+        <div class="rule-list">
+          <div class="rule-item"><span class="bullet">—</span><span class="text">During SvS, Sunfire, Tundra Arms League, Frostdragon, and other designated state-priority events — all alliances act in alignment with the agreed state battle plan. Internal disputes are paused until event completion.</span></div>
+        </div>
+
+        <p class="prose" style="font-weight:600;color:var(--ink);margin-top:8px;">Code of conduct</p>
+        <div class="rule-list">
+          <div class="rule-item"><span class="bullet">—</span><span class="text">Harassment, hate speech, or personal insults in World Chat or DMs are strictly prohibited. Keep rivalry focused on gameplay — repeated verbal abuse will result in punishment.</span></div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Enforcement -->
+    <div class="section-block">
+      <div class="section-head">
+        <span class="section-num">//&nbsp;03</span>
+        <span class="section-title">Accountability & enforcement</span>
+      </div>
+      <div class="section-body">
+        <p class="prose">Questionable violations are reviewed by uninvolved alliance leadership, based on screenshots, battle reports, and verifiable evidence. Rules are enforced based on intent, impact, and pattern of behavior. Exploiting loopholes is treated as a violation of the system itself.</p>
+
+        <div class="penalty-steps">
+          <div class="penalty-step"><span class="num">01</span><span class="txt">Warning + restitution</span></div>
+          <div class="penalty-step"><span class="num">02</span><span class="txt">Loss of event / structure privileges</span></div>
+          <div class="penalty-step"><span class="num">03</span><span class="txt">Temporary removal of GRIP protections</span></div>
+          <div class="penalty-step"><span class="num">04</span><span class="txt">Retaliatory attacks / rallies with Presidential punishments</span></div>
+          <div class="penalty-step"><span class="num">05</span><span class="txt">Invitation to leave GRIP</span></div>
+        </div>
+
+        <div class="callout">Repercussions will be swift and decisive. GRIP prioritizes fairness, clarity, and decisive action over endless debate.</div>
+      </div>
+    </div>
+
+    <!-- Current members -->
+    <div class="section-block">
+      <div class="section-head">
+        <span class="section-num">//&nbsp;04</span>
+        <span class="section-title">Member alliances</span>
+      </div>
+      <div class="section-body">
+        <div class="tag-row">
+          <span class="tag active">VKS</span>
+          <span class="tag active">EVL</span>
+          <span class="tag">HWZ</span>
+          <span class="tag">WLD</span>
+          <span class="tag">PHX</span>
+          <span class="tag">MAD</span>
+        </div>
+        <p class="prose">VKS and EVL are current full members. Remaining alliances are provisional or pending. Membership threshold is 500M SvS points per cycle — reviewed each cycle.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="foot">
+    <span><a href="/state3156/"><span class="accent">state-3156</span></a> · governance · GRIP v1.0</span>
+    <span>updated APR 2026</span>
+  </div>
+
+</div>
+
+<div class="sticky-cta">
+  <a class="btn btn-primary" href="https://discord.gg/u423WPcS">
+    Join the State Discord
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+  </a>
+</div>
+
+<script>
+(function(){
+  var btn=document.querySelector('.menu-btn');
+  var nav=document.querySelector('.appbar-nav');
+  if(!btn||!nav)return;
+  var dd=nav.cloneNode(true);
+  dd.style.cssText='display:none;position:fixed;top:58px;left:12px;right:12px;background:#11161f;border:1px solid #232a37;border-radius:8px;padding:8px;z-index:100;flex-direction:column;gap:4px;box-shadow:0 8px 32px rgba(0,0,0,0.4)';
+  document.body.appendChild(dd);
+  var open=false;
+  btn.addEventListener('click',function(e){e.stopPropagation();open=!open;dd.style.display=open?'flex':'none';btn.setAttribute('aria-expanded',open);});
+  document.addEventListener('click',function(){if(open){open=false;dd.style.display='none';}});
+  dd.addEventListener('click',function(){open=false;dd.style.display='none';});
+})();
+</script>
+</body>
+</html>

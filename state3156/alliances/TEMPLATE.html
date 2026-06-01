@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title id="page-title">Alliance — State 3156</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0b0f15; --bg-2: #11161f; --bg-3: #161c27; --bg-hover: #1a212e;
+  --border: #232a37; --border-soft: #1a212e;
+  --ink: #e6e9ef; --ink-2: #a3acbb; --ink-3: #6a7484; --ink-4: #4a5462;
+  --green: #34d399; --green-dim: rgba(52,211,153,0.12);
+  --amber: #fbbf24; --amber-dim: rgba(251,191,36,0.10);
+  --red: #f87171; --red-dim: rgba(248,113,113,0.14);
+  --purple: #a855f7; --purple-dim: rgba(168,85,247,0.12);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: var(--bg); color: var(--ink);
+  line-height: 1.5; font-size: 15px;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+  background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.025) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+.wrap { width: 100%; max-width: 860px; margin: 0 auto; padding: 16px 16px 64px; }
+@media (min-width: 700px) { .wrap { padding: 20px 24px 80px; } }
+.appbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 14px; background: var(--bg-2); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 14px; }
+.appbar-left { display: flex; align-items: center; gap: 10px; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; color: var(--ink); }
+.appbar-left .state-id { background: linear-gradient(90deg, var(--purple) 0%, #c084fc 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; font-weight: 700; }
+.logo-mark { width: 24px; height: 24px; border: 1.5px solid var(--purple); border-radius: 5px; display: inline-flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; color: var(--purple); flex-shrink: 0; box-shadow: 0 0 12px rgba(168,85,247,0.25); text-decoration: none; }
+.appbar-nav { display: none; gap: 4px; }
+@media (min-width: 700px) { .appbar-nav { display: flex; } }
+.appbar-nav a { font-size: 13px; font-weight: 500; color: var(--ink-2); text-decoration: none; padding: 6px 10px; border-radius: 5px; transition: background .15s, color .15s; }
+.appbar-nav a:hover { background: var(--bg-hover); color: var(--ink); }
+.appbar-nav a.active { color: var(--purple); }
+.appbar-right { display: flex; align-items: center; gap: 10px; }
+.status-pill { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; background: var(--green-dim); border: 1px solid rgba(52,211,153,0.3); border-radius: 999px; font-family: 'JetBrains Mono', monospace; font-size: 10.5px; font-weight: 600; letter-spacing: 0.02em; color: var(--green); }
+.status-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px var(--green); animation: pulse 2s ease-in-out infinite; }
+@keyframes pulse { 0%,100%{opacity:1}50%{opacity:.5} }
+.menu-btn { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; background: transparent; border: 1px solid var(--border); border-radius: 6px; color: var(--ink-2); cursor: pointer; }
+@media (min-width: 700px) { .menu-btn { display: none; } }
+.ally-header { background: var(--bg-2); border: 1px solid var(--border); border-radius: 10px; padding: 24px 22px; margin-bottom: 16px; }
+@media (min-width: 600px) { .ally-header { padding: 28px 28px; } }
+.ally-header .eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.1em; color: var(--ink-3); text-transform: uppercase; margin-bottom: 14px; }
+.ally-header .eyebrow a { color: var(--purple); text-decoration: none; }
+.ally-header .eyebrow .sep { color: var(--ink-4); margin: 0 6px; }
+.ally-header .name-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 10px; }
+.tag-badge { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700; color: var(--purple); background: var(--purple-dim); border: 1px solid rgba(168,85,247,0.3); padding: 3px 10px; border-radius: 5px; letter-spacing: 0.06em; }
+.ally-header h1 { font-family: 'Inter', sans-serif; font-weight: 700; font-size: clamp(26px, 5vw, 38px); line-height: 1.1; letter-spacing: -0.02em; color: var(--ink); }
+.power-block { text-align: right; flex-shrink: 0; }
+.power-val { font-family: 'JetBrains Mono', monospace; font-size: 22px; font-weight: 700; color: var(--ink); letter-spacing: -0.02em; line-height: 1; }
+.power-sub { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--ink-3); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 3px; }
+.meta-row { display: flex; flex-wrap: wrap; gap: 10px 18px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-3); letter-spacing: 0.08em; padding-top: 14px; border-top: 1px solid var(--border-soft); margin-top: 14px; }
+.meta-row .item { display: inline-flex; align-items: baseline; gap: 6px; }
+.meta-row .val { color: var(--ink); font-weight: 600; }
+.meta-row .val.green { color: var(--green); }
+.loading { opacity: 0.4; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--ink-3); letter-spacing: 0.06em; }
+.sections { display: flex; flex-direction: column; gap: 12px; }
+.section { background: var(--bg-2); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+.section .section-head { display: flex; align-items: center; gap: 10px; padding: 13px 18px; border-bottom: 1px solid var(--border-soft); background: var(--bg-3); }
+.section .section-head .prompt { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; color: var(--purple); flex-shrink: 0; }
+.section .section-head .title { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); }
+.section .section-body { padding: 18px 20px; }
+.leader-list { display: flex; flex-direction: column; gap: 10px; }
+.leader-list.two-col {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+@media (min-width: 480px) {
+  .leader-list.two-col {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.leader { display: flex; align-items: center; gap: 12px; padding: 10px 14px; background: var(--bg-3); border: 1px solid var(--border-soft); border-radius: 7px; }
+.leader .rank-badge { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 4px; flex-shrink: 0; letter-spacing: 0.04em; }
+.leader .rank-badge.r5 { background: var(--purple-dim); color: var(--purple); border: 1px solid rgba(168,85,247,0.3); }
+.leader .rank-badge.r4 { background: var(--bg-2); color: var(--ink-3); border: 1px solid var(--border); }
+.leader .name { font-size: 14px; font-weight: 600; color: var(--ink); }
+.leader .role { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-3); margin-left: auto; }
+.leader .discord-btn { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; flex-shrink: 0; border-radius: 6px; background: var(--bg-2); border: 1px solid var(--border); color: var(--ink-3); text-decoration: none; transition: background .15s, border-color .15s, color .15s; margin-left: auto; }
+.leader .role + .discord-btn { margin-left: 10px; }
+.leader .discord-btn:hover { background: #5865f2; border-color: #5865f2; color: #fff; }
+.leader .discord-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
+.about-text { font-size: 15px; line-height: 1.7; color: var(--ink-2); }
+.about-text + .about-text { margin-top: 12px; }
+.about-text strong { color: var(--ink); font-weight: 600; }
+.hq-row { display: flex; align-items: center; gap: 14px; font-family: 'JetBrains Mono', monospace; }
+.hq-row .coords { font-size: 18px; font-weight: 700; color: var(--ink); letter-spacing: -0.01em; }
+.hq-row .state-label { font-size: 11px; color: var(--ink-3); letter-spacing: 0.1em; text-transform: uppercase; }
+.event-table { width: 100%; border-collapse: collapse; }
+.event-table thead tr { border-bottom: 1px solid var(--border-soft); }
+.event-table thead th { font-family: 'JetBrains Mono', monospace; font-size: 9.5px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-4); padding: 0 0 10px; text-align: left; }
+.event-table thead th:not(:first-child) { text-align: right; }
+.event-table tbody tr { border-bottom: 1px solid var(--border-soft); }
+.event-table tbody tr:last-child { border-bottom: none; }
+.event-table tbody td { padding: 10px 0; font-family: 'JetBrains Mono', monospace; font-size: 13px; }
+.event-table .event-name { color: var(--ink-2); }
+.event-table .event-time { text-align: right; color: var(--ink); font-weight: 600; white-space: nowrap; }
+.event-table .event-score { text-align: right; color: var(--ink-3); font-size: 11px; white-space: nowrap; }
+.event-table .event-tier { text-align: right; }
+.tier-badge { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 4px; letter-spacing: 0.04em; }
+.tier-s { background: var(--green-dim); color: var(--green); border: 1px solid rgba(52,211,153,0.3); }
+.tier-ultimate { background: var(--purple-dim); color: var(--purple); border: 1px solid rgba(168,85,247,0.3); }
+.tier-other { background: var(--amber-dim); color: var(--amber); border: 1px solid rgba(251,191,36,0.3); }
+.svs-rows { display: flex; flex-direction: column; gap: 10px; }
+.svs-row { display: flex; justify-content: space-between; align-items: baseline; padding: 10px 14px; background: var(--bg-3); border: 1px solid var(--border-soft); border-radius: 7px; }
+.svs-row .k { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); }
+.svs-row .v { font-family: 'JetBrains Mono', monospace; font-size: 16px; font-weight: 700; color: var(--green); letter-spacing: -0.01em; }
+.contact-block { display: flex; flex-direction: column; gap: 12px; }
+.contact-block .discord-url { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--ink-2); }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 18px; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 14px; text-decoration: none; border-radius: 7px; border: 1px solid transparent; cursor: pointer; transition: all .15s ease; min-height: 44px; }
+.btn-primary { background: var(--green); color: #052e1f; border-color: var(--green); box-shadow: 0 0 0 1px rgba(52,211,153,0.2), 0 6px 16px -8px rgba(52,211,153,0.45); }
+.btn-primary:hover { background: #2bc28a; border-color: #2bc28a; }
+.btn-full { width: 100%; }
+.back { display: inline-flex; align-items: center; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.1em; color: var(--ink-3); text-decoration: none; text-transform: uppercase; margin-top: 28px; transition: color .15s; }
+.back:hover { color: var(--purple); }
+.foot { margin-top: 32px; padding-top: 16px; border-top: 1px solid var(--border-soft); font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-3); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; }
+.foot .accent { color: var(--purple); }
+.foot a { color: var(--ink-3); text-decoration: none; }
+.foot a:hover { color: var(--purple); }
+.sticky-cta { position: fixed; bottom: 0; left: 0; right: 0; background: linear-gradient(180deg, rgba(11,15,21,0) 0%, var(--bg) 30%); padding: 16px 14px calc(14px + env(safe-area-inset-bottom)); z-index: 50; }
+.sticky-cta .btn { width: 100%; }
+@media (min-width: 700px) { .sticky-cta { display: none; } }
+@media (max-width: 699.98px) { body { padding-bottom: 90px; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <nav class="appbar">
+    <div class="appbar-left">
+      <a href="/state3156/" class="logo-mark">3156</a>
+      <span class="state-id">state-3156</span>
+    </div>
+    <div class="appbar-nav">
+      <a href="/state3156/grip">Governance</a>
+      
+      <a href="/state3156/alliances" class="active">Alliances</a>
+      <a href="/state3156/transfers">Transfers</a>
+    </div>
+    <div class="appbar-right">
+      <span class="status-pill"><span class="status-dot"></span>RECRUITING</span>
+      <button class="menu-btn" aria-label="Menu">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+    </div>
+  </nav>
+
+  <div class="ally-header">
+    <div class="eyebrow">
+      <a href="/state3156/alliances">alliances</a>
+      <span class="sep">/</span>
+      <span id="dyn-tag">—</span>
+    </div>
+    <div class="name-row">
+      <div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+          <span class="tag-badge" id="dyn-tag-badge">—</span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-3);letter-spacing:0.08em;" id="dyn-rank"></span>
+        </div>
+        <h1 id="dyn-name"><span class="loading">Loading…</span></h1>
+      </div>
+      <div class="power-block">
+        <div class="power-val" id="dyn-power">—</div>
+        <div class="power-sub">Alliance Power</div>
+      </div>
+    </div>
+    <div class="meta-row">
+      <span class="item">Spots <span class="val green" id="dyn-spots">—</span></span>
+      <span class="item">Championship <span class="val" id="dyn-championship">—</span></span>
+      <span class="item">Data as of <span class="val" id="dyn-timestamp">—</span></span>
+      <span id="live-badge" style="display:none;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--green);background:var(--green-dim);border:1px solid rgba(52,211,153,0.3);padding:2px 8px;border-radius:4px;letter-spacing:0.06em;">LIVE</span>
+    </div>
+  </div>
+
+  <div class="sections">
+
+    <!-- 1. About -->
+    <div class="section">
+      <div class="section-head"><span class="prompt">&gt;_</span><span class="title">About</span></div>
+      <div class="section-body">
+        <div id="dyn-about"><div class="loading">Loading…</div></div>
+      </div>
+    </div>
+
+    <!-- 2. Contact -->
+    <div class="section">
+      <div class="section-head"><span class="prompt">&gt;_</span><span class="title">Contact</span></div>
+      <div class="section-body">
+        <div class="contact-block">
+          <div class="discord-url" id="dyn-contact-url">—</div>
+          <a class="btn btn-primary btn-full" id="dyn-contact-btn" href="#" target="_blank" rel="noopener">
+            Contact
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. Event Schedule -->
+    <div class="section">
+      <div class="section-head"><span class="prompt">&gt;_</span><span class="title">Event Schedule</span></div>
+      <div class="section-body">
+        <table class="event-table">
+          <thead>
+            <tr>
+              <th>Event</th>
+              <th style="text-align:right;">Time (UTC)</th>
+              <th style="text-align:right;">Score / Tier</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="event-name">Bear Hunt</td>
+              <td class="event-time"><span id="dyn-bear1-time">—</span> · <span id="dyn-bear2-time">—</span></td>
+              <td class="event-score"><span id="dyn-bear1-score">—</span> · <span id="dyn-bear2-score">—</span></td>
+            </tr>
+            <tr>
+              <td class="event-name">Foundry Battle</td>
+              <td class="event-time" id="dyn-foundry-time">—</td>
+              <td class="event-tier"><span class="tier-badge tier-s" id="dyn-foundry-tier">—</span></td>
+            </tr>
+            <tr>
+              <td class="event-name">Canyon Clash</td>
+              <td class="event-time" id="dyn-canyon-time">—</td>
+              <td class="event-tier"><span class="tier-badge tier-s" id="dyn-canyon-tier">—</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 4. SvS Prep Score -->
+    <div class="section">
+      <div class="section-head"><span class="prompt">&gt;_</span><span class="title">SvS Prep Score</span></div>
+      <div class="section-body">
+        <div class="svs-rows">
+          <div class="svs-row"><span class="k">Typical</span><span class="v" id="dyn-svs-typical">—</span></div>
+          <div class="svs-row"><span class="k">Last Cycle</span><span class="v" id="dyn-svs-last">—</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. Leadership — single or two-column depending on leader count -->
+    <div class="section">
+      <div class="section-head"><span class="prompt">&gt;_</span><span class="title">Leadership</span></div>
+      <div class="section-body">
+        <div class="leader-list" id="dyn-leaders"><div class="loading">Loading…</div></div>
+      </div>
+    </div>
+
+    <!-- 6. HQ Location -->
+    <div class="section">
+      <div class="section-head"><span class="prompt">&gt;_</span><span class="title">HQ Location</span></div>
+      <div class="section-body">
+        <div class="hq-row">
+          <div>
+            <div class="state-label">State 3156</div>
+            <div class="coords" id="dyn-hq">—</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <a class="back" href="/state3156/alliances">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+    All alliances
+  </a>
+
+  <div class="foot">
+    <span><a href="/state3156/"><span class="accent">state-3156</span></a> · <a href="/state3156/alliances">alliances</a> · <span id="foot-tag">—</span></span>
+    <span id="foot-timestamp">—</span>
+  </div>
+
+</div>
+
+<div class="sticky-cta">
+  <a class="btn btn-primary" id="dyn-sticky-btn" href="#">
+    Contact
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+  </a>
+</div>
+
+<script src="/state3156/config.js"></script>
+<script>
+(function() {
+
+  // ================================================================
+  // ▼▼▼  CHANGE THIS ONE LINE PER ALLIANCE  ▼▼▼
+  var ALLIANCE_TAG = 'VKS'; // Options: WLD · PHX · VKS · EVL · HWZ · MAD
+  // ▲▲▲  THAT'S IT — everything else is automatic  ▲▲▲
+  // ================================================================
+
+  var RESPONSES_CSV = STATE3156_CONFIG.RESPONSES_CSV;
+  var ADMIN_CSV     = STATE3156_CONFIG.ADMIN_CSV;
+  var POWER_RANKS   = STATE3156_CONFIG.POWER_RANKS;
+
+  function parseCSV(text) {
+    var rows = [], row = [], field = '', inQuotes = false;
+    for (var i = 0; i < text.length; i++) {
+      var ch = text[i], next = text[i+1];
+      if (inQuotes) {
+        if (ch === '"' && next === '"') { field += '"'; i++; }
+        else if (ch === '"') { inQuotes = false; }
+        else { field += ch; }
+      } else {
+        if (ch === '"') { inQuotes = true; }
+        else if (ch === ',') { row.push(field.trim()); field = ''; }
+        else if (ch === '\n') { row.push(field.trim()); rows.push(row); row = []; field = ''; }
+        else if (ch !== '\r') { field += ch; }
+      }
+    }
+    if (field || row.length) { row.push(field.trim()); rows.push(row); }
+    return rows;
+  }
+
+  function toObjects(rows) {
+    var h = rows[0];
+    return rows.slice(1).map(function(r) {
+      var o = {}; h.forEach(function(k,i){ o[k] = r[i]||''; }); return o;
+    });
+  }
+
+  function fmtTime(raw) {
+    if (!raw) return '';
+    raw = raw.trim();
+    if (/^\d{2}:\d{2}$/.test(raw)) return raw;
+    var m = raw.match(/(\d+):(\d+)(?::\d+)?\s*(AM|PM)/i);
+    if (!m) return raw;
+    var h = parseInt(m[1],10), min = m[2], ap = m[3].toUpperCase();
+    if (ap==='PM' && h!==12) h+=12;
+    if (ap==='AM' && h===12) h=0;
+    return (h<10?'0':'')+h+':'+min;
+  }
+
+  function setText(id,v){ var e=document.getElementById(id); if(e&&v) e.textContent=v; }
+  function setHTML(id,v){ var e=document.getElementById(id); if(e&&v) e.innerHTML=v; }
+  function setHref(id,v){ var e=document.getElementById(id); if(e&&v) e.href=v; }
+  function show(id){ var e=document.getElementById(id); if(e) e.style.display=''; }
+
+  var DISCORD_ICON = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057c.002.022.015.043.033.056a19.908 19.908 0 0 0 5.993 3.03.077.077 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>';
+
+  function buildLeaders(d) {
+    var r5 = d['R5 Name *'], r5h = d['R5 Discord Handle'], r5r = d['R5 Role / Title']||'Alliance Leader';
+    var r4s = (d['R4 Names']||'').split('\n').map(function(s){return s.trim();}).filter(Boolean);
+    var r4h = (d['R4 Discord Handles']||'').split('\n').map(function(s){return s.trim();});
+    var r4r = (d['R4 Roles / Titles']||'').split('\n').map(function(s){return s.trim();});
+    function btn(h) {
+      if (!h) return '';
+      var href = h.startsWith('http') ? h : 'https://discord.com/users/'+h;
+      return '<a class="discord-btn" href="'+href+'" target="_blank" rel="noopener" title="Message on Discord">'+DISCORD_ICON+'</a>';
+    }
+    var html = '';
+    if (r5) html += '<div class="leader"><span class="rank-badge r5">R5</span><span class="name">'+r5+'</span><span class="role">'+r5r+'</span>'+btn(r5h)+'</div>';
+    r4s.forEach(function(n,i){
+      html += '<div class="leader"><span class="rank-badge r4">R4</span><span class="name">'+n+'</span>'+(r4r[i]?'<span class="role">'+r4r[i]+'</span>':'')+btn(r4h[i]||'')+'</div>';
+    });
+
+    // Apply two-column layout when 5+ leaders
+    var totalLeaders = (r5 ? 1 : 0) + r4s.length;
+    var colClass = totalLeaders >= 5 ? 'leader-list two-col' : 'leader-list';
+    var el = document.getElementById('dyn-leaders');
+    if (el) el.className = colClass;
+
+    return html || '<div class="loading">No data yet.</div>';
+  }
+
+  function buildAbout(text) {
+    if (!text) return '<div class="loading">No description yet.</div>';
+    return text.split('\n\n').filter(Boolean).map(function(p){
+      return '<p class="about-text">'+p.replace(/\n/g,' ').trim()+'</p>';
+    }).join('');
+  }
+
+  function apply(d) {
+    var tag = ALLIANCE_TAG;
+    var pr = POWER_RANKS[tag]||{};
+
+    // Header identity
+    setText('dyn-tag', tag);
+    setText('dyn-tag-badge', tag);
+    setText('foot-tag', tag);
+    setText('dyn-name', d['Full Alliance Name *']||tag);
+    setText('dyn-rank', pr.rank ? '#'+pr.rank+' IN STATE' : '');
+    setText('dyn-power', pr.power||'');
+    document.title = (d['Full Alliance Name *']||tag)+' — State 3156';
+
+    // Meta
+    var spots = d['Spots Open *'];
+    setText('dyn-spots', spots ? spots+' open' : '');
+    setText('dyn-championship', d['Alliance Championship Tier']||'');
+    if (d['Timestamp']) {
+      var parts = d['Timestamp'].split(' ')[0].split('/');
+      var ts = new Date(parts[2], parseInt(parts[1],10)-1, parseInt(parts[0],10));
+      var mo = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+      var fmt = mo[ts.getMonth()]+' '+ts.getDate()+', '+ts.getFullYear();
+      setText('dyn-timestamp', fmt);
+      setText('foot-timestamp', 'data as of '+fmt);
+    }
+
+    // Sections
+    setHTML('dyn-leaders', buildLeaders(d));
+    setHTML('dyn-about', buildAbout(d['About / Description *']));
+
+    // HQ
+    var x=d['HQ X Coordinate *'], y=d['HQ Y Coordinate *'];
+    if (x&&y) setText('dyn-hq','X '+x+' · Y '+y);
+
+    // Events
+    setText('dyn-bear1-time', fmtTime(d['Bear Hunt 1 — Time (UTC) *']));
+    setText('dyn-bear2-time', fmtTime(d['Bear Hunt 2 — Time (UTC) *']));
+    var b1s=d['Bear Hunt 1 — Typical High Score (in Billions)'];
+    var b2s=d['Bear Hunt 2 — Typical High Score'];
+    setText('dyn-bear1-score', b1s?'~'+b1s+'B':'');
+    setText('dyn-bear2-score', b2s?'~'+b2s+'B':'');
+    var f1=fmtTime(d['Foundry Battle Legion 1 — Time (UTC)']), f2=fmtTime(d['Foundry Battle Legion 2 — Time (UTC)']);
+    setText('dyn-foundry-time', [f1,f2].filter(Boolean).join(' · '));
+    setText('dyn-foundry-tier', d['Foundry Battle — Tier']||'');
+    var c1=fmtTime(d['Canyon Clash Legion 1— Time (UTC)']), c2=fmtTime(d['Canyon Clash Legion 2— Time (UTC)']);
+    setText('dyn-canyon-time', [c1,c2].filter(Boolean).join(' · '));
+    setText('dyn-canyon-tier', d['Canyon Clash — Tier']||'');
+    var cj1=fmtTime(d['Crazy Joe 1']), cj2=fmtTime(d['Crazy Joe 2']);
+    setText('dyn-crazyjoe-time', [cj1,cj2].filter(Boolean).join(' · '));
+    setText('dyn-crazyjoe-level', d['Crazy Joe — Level']||d['Crazy Joe lvl']||'');
+
+    // SvS
+    var typ=d['Typical Prep Score (In Billions)'], last=d['Last Cycle Prep Score (In Billions)'];
+    setText('dyn-svs-typical', typ?typ+'B+':'');
+    setText('dyn-svs-last', last?last+'B':'');
+
+    // Contact
+    var contact=d['Contact Discord Link *'];
+    if (contact) {
+      setText('dyn-contact-url', contact.replace('https://','').replace('http://',''));
+      setHref('dyn-contact-btn', contact);
+      setHref('dyn-sticky-btn', contact);
+    }
+
+    show('live-badge');
+  }
+
+  // Fetch responses directly
+  fetch(RESPONSES_CSV)
+    .then(function(r){ return r.text(); })
+    .then(function(text) {
+      var responses = toObjects(parseCSV(text));
+      var matches = responses.filter(function(r){
+        return r['Alliance Tag *'] && r['Alliance Tag *'].trim().toUpperCase() === ALLIANCE_TAG;
+      });
+      if (!matches.length) { console.log('No response found for '+ALLIANCE_TAG); return; }
+      apply(matches[matches.length-1]);
+    })
+    .catch(function(e){ console.warn('Fetch failed:', e); });
+
+  // ── Mobile menu ──────────────────────────────────────────────────
+  (function() {
+    var btn = document.querySelector('.menu-btn');
+    var nav = document.querySelector('.appbar-nav');
+    if (!btn || !nav) return;
+
+    // Clone nav for mobile dropdown
+    var dropdown = nav.cloneNode(true);
+    dropdown.style.cssText = [
+      'display:none',
+      'position:fixed',
+      'top:58px',
+      'left:12px',
+      'right:12px',
+      'background:#11161f',
+      'border:1px solid #232a37',
+      'border-radius:8px',
+      'padding:8px',
+      'z-index:100',
+      'flex-direction:column',
+      'gap:4px',
+      'box-shadow:0 8px 32px rgba(0,0,0,0.4)'
+    ].join(';');
+    document.body.appendChild(dropdown);
+
+    var open = false;
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      open = !open;
+      dropdown.style.display = open ? 'flex' : 'none';
+      btn.setAttribute('aria-expanded', open);
+    });
+
+    document.addEventListener('click', function() {
+      if (open) { open = false; dropdown.style.display = 'none'; }
+    });
+
+    dropdown.addEventListener('click', function() {
+      open = false; dropdown.style.display = 'none';
+    });
+  })();
+
+})();
+</script>
+
+</body>
+</html>

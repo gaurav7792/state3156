@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Voice Ops — State 3156</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0b0f15; --bg-2: #11161f; --bg-3: #161c27; --bg-hover: #1a212e;
+  --border: #232a37; --border-soft: #1a212e;
+  --ink: #e6e9ef; --ink-2: #a3acbb; --ink-3: #6a7484; --ink-4: #4a5462;
+  --green: #34d399; --green-dim: rgba(52,211,153,0.12);
+  --amber: #fbbf24; --amber-dim: rgba(251,191,36,0.10);
+  --purple: #a855f7; --purple-dim: rgba(168,85,247,0.12);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: var(--bg); color: var(--ink);
+  line-height: 1.5; font-size: 15px;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+  background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.025) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+.wrap { width: 100%; max-width: 860px; margin: 0 auto; padding: 16px 16px 64px; }
+@media (min-width: 700px) { .wrap { padding: 20px 24px 80px; } }
+.appbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 14px; background: var(--bg-2); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 14px; }
+.appbar-left { display: flex; align-items: center; gap: 10px; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; color: var(--ink); }
+.appbar-left .state-id { background: linear-gradient(90deg, var(--purple) 0%, #c084fc 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; font-weight: 700; }
+.logo-mark { width: 24px; height: 24px; border: 1.5px solid var(--purple); border-radius: 5px; display: inline-flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; color: var(--purple); flex-shrink: 0; box-shadow: 0 0 12px rgba(168,85,247,0.25); text-decoration: none; }
+.appbar-nav { display: none; gap: 4px; }
+@media (min-width: 700px) { .appbar-nav { display: flex; } }
+.appbar-nav a { font-size: 13px; font-weight: 500; color: var(--ink-2); text-decoration: none; padding: 6px 10px; border-radius: 5px; transition: background .15s, color .15s; }
+.appbar-nav a:hover { background: var(--bg-hover); color: var(--ink); }
+.appbar-nav a.active { color: var(--purple); }
+.appbar-right { display: flex; align-items: center; gap: 10px; }
+.status-pill { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; background: var(--green-dim); border: 1px solid rgba(52,211,153,0.3); border-radius: 999px; font-family: 'JetBrains Mono', monospace; font-size: 10.5px; font-weight: 600; letter-spacing: 0.02em; color: var(--green); }
+.status-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px var(--green); animation: pulse 2s ease-in-out infinite; }
+@keyframes pulse { 0%,100%{opacity:1}50%{opacity:.5} }
+.menu-btn { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; background: transparent; border: 1px solid var(--border); border-radius: 6px; color: var(--ink-2); cursor: pointer; }
+@media (min-width: 700px) { .menu-btn { display: none; } }
+
+/* Page header */
+.page-header { padding: 28px 0 24px; border-bottom: 1px solid var(--border-soft); margin-bottom: 32px; }
+.page-header .eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.1em; color: var(--ink-3); text-transform: uppercase; margin-bottom: 10px; }
+.page-header .eyebrow .accent { color: var(--purple); }
+.page-header h1 { font-family: 'Inter', sans-serif; font-weight: 700; font-size: clamp(26px, 5vw, 38px); line-height: 1.1; letter-spacing: -0.025em; color: var(--ink); margin-bottom: 8px; }
+.page-header .dek { font-size: 15px; color: var(--ink-2); line-height: 1.6; max-width: 58ch; }
+
+/* Sections */
+.sections { display: flex; flex-direction: column; gap: 12px; }
+.section { background: var(--bg-2); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+.section-head { display: flex; align-items: center; gap: 10px; padding: 13px 18px; border-bottom: 1px solid var(--border-soft); background: var(--bg-3); }
+.section-head .prompt { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; color: var(--purple); flex-shrink: 0; }
+.section-head .title { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); }
+.section-body { padding: 20px 22px; display: flex; flex-direction: column; gap: 16px; }
+
+/* Prose */
+.prose { font-size: 15px; line-height: 1.7; color: var(--ink-2); }
+.prose strong { color: var(--ink); font-weight: 600; }
+
+/* Role cards */
+.roles { display: flex; flex-direction: column; gap: 10px; }
+.role {
+  background: var(--bg-3);
+  border: 1px solid var(--border-soft);
+  border-radius: 8px;
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.role .role-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.role .role-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--purple);
+  background: var(--purple-dim);
+  border: 1px solid rgba(168,85,247,0.3);
+  padding: 2px 8px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+.role h3 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+.role p {
+  font-size: 13.5px;
+  color: var(--ink-2);
+  line-height: 1.6;
+}
+.role p strong { color: var(--ink); font-weight: 600; }
+
+/* Etiquette list */
+.etiquette { display: flex; flex-direction: column; gap: 10px; }
+.etiquette-item {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  padding: 12px 16px;
+  background: var(--bg-3);
+  border: 1px solid var(--border-soft);
+  border-radius: 7px;
+}
+.etiquette-item .ico {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  color: var(--green);
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.etiquette-item .text {
+  font-size: 14px;
+  color: var(--ink-2);
+  line-height: 1.55;
+}
+.etiquette-item .text strong { color: var(--ink); font-weight: 600; }
+
+/* Language callout */
+.callout {
+  padding: 16px 18px;
+  background: var(--bg-3);
+  border: 1px solid var(--border-soft);
+  border-left: 2px solid var(--purple);
+  border-radius: 0 8px 8px 0;
+  font-size: 14.5px;
+  color: var(--ink-2);
+  line-height: 1.65;
+}
+.callout strong { color: var(--ink); font-weight: 600; }
+
+/* Footer */
+.foot { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--border-soft); font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-3); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; }
+.foot .accent { color: var(--purple); }
+.foot a { color: var(--ink-3); text-decoration: none; }
+.foot a:hover { color: var(--purple); }
+
+/* Sticky CTA */
+.sticky-cta { position: fixed; bottom: 0; left: 0; right: 0; background: linear-gradient(180deg, rgba(11,15,21,0) 0%, var(--bg) 30%); padding: 16px 14px calc(14px + env(safe-area-inset-bottom)); z-index: 50; }
+.sticky-cta .btn { width: 100%; }
+@media (min-width: 700px) { .sticky-cta { display: none; } }
+@media (max-width: 699.98px) { body { padding-bottom: 90px; } }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 18px; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 14px; text-decoration: none; border-radius: 7px; border: 1px solid transparent; cursor: pointer; transition: all .15s ease; min-height: 44px; }
+.btn-primary { background: var(--green); color: #052e1f; border-color: var(--green); box-shadow: 0 0 0 1px rgba(52,211,153,0.2), 0 6px 16px -8px rgba(52,211,153,0.45); }
+.btn-primary:hover { background: #2bc28a; border-color: #2bc28a; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <nav class="appbar">
+    <div class="appbar-left">
+      <a href="/state3156/" class="logo-mark">3156</a>
+      <span class="state-id">state-3156</span>
+    </div>
+    <div class="appbar-nav">
+      <a href="/state3156/grip">Governance</a>
+      
+      <a href="/state3156/alliances">Alliances</a>
+      <a href="/state3156/transfers">Transfers</a>
+    </div>
+    <div class="appbar-right">
+      <span class="status-pill"><span class="status-dot"></span>RECRUITING</span>
+      <button class="menu-btn" aria-label="Menu">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+    </div>
+  </nav>
+
+  <div class="page-header">
+    <div class="eyebrow"><span class="accent">state-3156</span> / operations</div>
+    <h1>How we fight together.</h1>
+    <p class="dek">When the Sunfire Castle battle starts, text chat isn't fast enough. We run live Discord voice during every castle battle. Here's how it works and what role you might play.</p>
+  </div>
+
+  <div class="sections">
+
+    <!-- Why voice -->
+    <div class="section">
+      <div class="section-head"><span class="prompt">&gt;_</span><span class="title">Why voice</span></div>
+      <div class="section-body">
+        <p class="prose">Castle battles are decided in seconds. A rally that lands a second late, a swap that nobody called, a counter-rally that opens too early — these are the differences between winning and losing the castle. Voice coordination closes that gap. When it's working well, it feels like a machine. When it isn't, it shows.</p>
+        <p class="prose">We've put in the work to make it feel like the former.</p>
+      </div>
+    </div>
+
+    <!-- Roles -->
+    <div class="section">
+      <div class="section-head"><span class="prompt">&gt;_</span><span class="title">The roles</span></div>
+      <div class="section-body">
+        <p class="prose">Everyone on voice has a job. Here's how it breaks down:</p>
+        <div class="roles">
+
+          <div class="role">
+            <div class="role-header">
+              <span class="role-tag">Decision</span>
+              <h3>Rally / Counter-Rally Leaders</h3>
+            </div>
+            <p>The decision-makers during the battle. They time rallies at the castle, coordinate with each other to hit perfect windows, and call counter-rallies the moment the enemy hits. Goal: keep our state in the castle and minimize the opponent's time there.</p>
+          </div>
+
+          <div class="role">
+            <div class="role-header">
+              <span class="role-tag">Execution</span>
+              <h3>Rally Managers</h3>
+            </div>
+            <p>The rally fillers — making sure every march going to the castle has the right troops in the right order. We fill by priority: <strong>Helios first, then FC5 down to FC1.</strong> FC4 and FC5 troops take precedence for castle rallies. At the 5-second swap window, the garrison needs to be clear — Rally Managers and Rally Leaders coordinate this timing carefully.</p>
+          </div>
+
+          <div class="role">
+            <div class="role-header">
+              <span class="role-tag">Comms</span>
+              <h3>Comms Team</h3>
+            </div>
+            <p>The bridge between Discord voice and alliance chat. Not everyone is on voice — the Comms Team makes sure calls reach everyone in real time, in both directions. They relay what the leaders say and flag what's happening in chat.</p>
+          </div>
+
+          <div class="role">
+            <div class="role-header">
+              <span class="role-tag">Intel</span>
+              <h3>Overwatch</h3>
+            </div>
+            <p>Eyes on the enemy. Overwatch is on voice throughout, watching for enemy rally launches, counting down counter-rally windows, and reading the opponent's strategy. When something unexpected happens, Overwatch calls it first.</p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Etiquette -->
+    <div class="section">
+      <div class="section-head"><span class="prompt">&gt;_</span><span class="title">Battle etiquette</span></div>
+      <div class="section-body">
+        <p class="prose">Two simple rules that make voice ops run smoothly:</p>
+        <div class="etiquette">
+          <div class="etiquette-item">
+            <span class="ico">01</span>
+            <div class="text"><strong>Join rallies after the first minute.</strong> Designated joiners go first — this ensures the right hero composition before the rally fills. We're stat maxing.</div>
+          </div>
+          <div class="etiquette-item">
+            <span class="ico">02</span>
+            <div class="text"><strong>Don't complain if you're removed from a rally.</strong> Rally Leaders and Managers are optimizing hero loadouts in real time. It's not personal.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Language -->
+    <div class="section">
+      <div class="section-head"><span class="prompt">&gt;_</span><span class="title">Language</span></div>
+      <div class="section-body">
+        <div class="callout">
+          We primarily run voice in English, but <strong>3156 isn't limited by language.</strong> We've figured out ways to communicate with non-native speakers — you just have to stay alert. If you're worried about the language barrier, don't be. Show up and we'll make it work.
+        </div>
+      </div>
+    </div>
+
+    <!-- Get involved -->
+    <div class="section">
+      <div class="section-head"><span class="prompt">&gt;_</span><span class="title">Want to get involved?</span></div>
+      <div class="section-body">
+        <p class="prose">Voice ops is open to anyone who wants to contribute beyond just filling rallies. If you're interested in taking a role — whether that's Overwatch, Comms, or working toward a Rally Leader spot — talk to your R4 or R5. We develop people. That's the point.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="foot">
+    <span><a href="/state3156/"><span class="accent">state-3156</span></a> · operations</span>
+    <span>castle battle · voice coordination</span>
+  </div>
+
+</div>
+
+<div class="sticky-cta">
+  <a class="btn btn-primary" href="https://discord.gg/u423WPcS" target="_blank" rel="noopener">
+    Join the State Discord
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+  </a>
+</div>
+
+<script>
+(function(){
+  var btn=document.querySelector('.menu-btn');
+  var nav=document.querySelector('.appbar-nav');
+  if(!btn||!nav)return;
+  var dd=nav.cloneNode(true);
+  dd.style.cssText='display:none;position:fixed;top:58px;left:12px;right:12px;background:#11161f;border:1px solid #232a37;border-radius:8px;padding:8px;z-index:100;flex-direction:column;gap:4px;box-shadow:0 8px 32px rgba(0,0,0,0.4)';
+  document.body.appendChild(dd);
+  var open=false;
+  btn.addEventListener('click',function(e){e.stopPropagation();open=!open;dd.style.display=open?'flex':'none';btn.setAttribute('aria-expanded',open);});
+  document.addEventListener('click',function(){if(open){open=false;dd.style.display='none';}});
+  dd.addEventListener('click',function(){open=false;dd.style.display='none';});
+})();
+</script>
+
+</body>
+</html>

@@ -68,6 +68,16 @@ body {
 .section .section-head .title { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); }
 .section .section-body { padding: 18px 20px; }
 .leader-list { display: flex; flex-direction: column; gap: 10px; }
+.leader-list.two-col {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+@media (min-width: 480px) {
+  .leader-list.two-col {
+    grid-template-columns: 1fr 1fr;
+  }
+}
 .leader { display: flex; align-items: center; gap: 12px; padding: 10px 14px; background: var(--bg-3); border: 1px solid var(--border-soft); border-radius: 7px; }
 .leader .rank-badge { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 4px; flex-shrink: 0; letter-spacing: 0.04em; }
 .leader .rank-badge.r5 { background: var(--purple-dim); color: var(--purple); border: 1px solid rgba(168,85,247,0.3); }
@@ -172,13 +182,7 @@ body {
 
   <div class="sections">
 
-    <div class="section">
-      <div class="section-head"><span class="prompt">&gt;_</span><span class="title">Leadership</span></div>
-      <div class="section-body">
-        <div class="leader-list" id="dyn-leaders"><div class="loading">Loading…</div></div>
-      </div>
-    </div>
-
+    <!-- 1. About -->
     <div class="section">
       <div class="section-head"><span class="prompt">&gt;_</span><span class="title">About</span></div>
       <div class="section-body">
@@ -186,18 +190,21 @@ body {
       </div>
     </div>
 
+    <!-- 2. Contact -->
     <div class="section">
-      <div class="section-head"><span class="prompt">&gt;_</span><span class="title">HQ Location</span></div>
+      <div class="section-head"><span class="prompt">&gt;_</span><span class="title">Contact</span></div>
       <div class="section-body">
-        <div class="hq-row">
-          <div>
-            <div class="state-label">State 3156</div>
-            <div class="coords" id="dyn-hq">—</div>
-          </div>
+        <div class="contact-block">
+          <div class="discord-url" id="dyn-contact-url">—</div>
+          <a class="btn btn-primary btn-full" id="dyn-contact-btn" href="#" target="_blank" rel="noopener">
+            Contact
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
         </div>
       </div>
     </div>
 
+    <!-- 3. Event Schedule -->
     <div class="section">
       <div class="section-head"><span class="prompt">&gt;_</span><span class="title">Event Schedule</span></div>
       <div class="section-body">
@@ -230,6 +237,7 @@ body {
       </div>
     </div>
 
+    <!-- 4. SvS Prep Score -->
     <div class="section">
       <div class="section-head"><span class="prompt">&gt;_</span><span class="title">SvS Prep Score</span></div>
       <div class="section-body">
@@ -240,15 +248,23 @@ body {
       </div>
     </div>
 
+    <!-- 5. Leadership — single or two-column depending on leader count -->
     <div class="section">
-      <div class="section-head"><span class="prompt">&gt;_</span><span class="title">Contact</span></div>
+      <div class="section-head"><span class="prompt">&gt;_</span><span class="title">Leadership</span></div>
       <div class="section-body">
-        <div class="contact-block">
-          <div class="discord-url" id="dyn-contact-url">—</div>
-          <a class="btn btn-primary btn-full" id="dyn-contact-btn" href="#" target="_blank" rel="noopener">
-            Contact
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </a>
+        <div class="leader-list" id="dyn-leaders"><div class="loading">Loading…</div></div>
+      </div>
+    </div>
+
+    <!-- 6. HQ Location -->
+    <div class="section">
+      <div class="section-head"><span class="prompt">&gt;_</span><span class="title">HQ Location</span></div>
+      <div class="section-body">
+        <div class="hq-row">
+          <div>
+            <div class="state-label">State 3156</div>
+            <div class="coords" id="dyn-hq">—</div>
+          </div>
         </div>
       </div>
     </div>
@@ -348,6 +364,13 @@ body {
     r4s.forEach(function(n,i){
       html += '<div class="leader"><span class="rank-badge r4">R4</span><span class="name">'+n+'</span>'+(r4r[i]?'<span class="role">'+r4r[i]+'</span>':'')+btn(r4h[i]||'')+'</div>';
     });
+
+    // Apply two-column layout when 5+ leaders
+    var totalLeaders = (r5 ? 1 : 0) + r4s.length;
+    var colClass = totalLeaders >= 5 ? 'leader-list two-col' : 'leader-list';
+    var el = document.getElementById('dyn-leaders');
+    if (el) el.className = colClass;
+
     return html || '<div class="loading">No data yet.</div>';
   }
 

@@ -40,6 +40,6 @@ var STATE3156_CONFIG = {
   TRANSFER_WINDOW: '—',
 
   // ── State Discord ──────────────────────────────────────────────
-  STATE_DISCORD: 'https://discord.gg/u423WPcS'
+  STATE_DISCORD: 'https://discord.gg/rHjgUzjegh'
 
 };

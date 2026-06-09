@@ -197,7 +197,55 @@ body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg); c
   </a>
 </div>
 
+<script src="/config.js"></script>
 <script>
+/* Single source of truth: render power, rank, bars, and state total from
+   config.js → POWER_RANKS. Falls back to the static HTML values if config
+   fails to load, so the page never renders empty. */
+(function(){
+  var CFG = (window.STATE3156_CONFIG && STATE3156_CONFIG.POWER_RANKS) || null;
+  if(!CFG) return;
+
+  // Power string ("20B", "16.5B", "900M") -> value in billions
+  function toB(str){
+    var m = String(str||'').trim().match(/([\d.]+)\s*([BMK]?)/i);
+    if(!m) return 0;
+    var n = parseFloat(m[1])||0, u=(m[2]||'B').toUpperCase();
+    return u==='M' ? n/1e3 : u==='K' ? n/1e6 : n;
+  }
+  function fmtB(n){ return (Math.round(n*100)/100) + 'B'; }
+
+  var list = document.querySelector('.ally-list');
+  var rows = Array.prototype.slice.call(document.querySelectorAll('.ally-row'));
+
+  var data = rows.map(function(row){
+    var pill = row.querySelector('.tag-pill');
+    var tag  = pill ? pill.textContent.trim() : '';
+    var pr   = CFG[tag] || {};
+    return { row:row, tag:tag, rank:(pr.rank||999), power:pr.power, b:toB(pr.power) };
+  });
+
+  var maxB = Math.max.apply(null, data.map(function(d){return d.b;}).concat([0]));
+  data.sort(function(a,b){ return a.rank - b.rank; });
+
+  var total = 0;
+  data.forEach(function(d){
+    if(d.power){
+      var pv = d.row.querySelector('.power-val');
+      if(pv) pv.textContent = d.power;
+      var pf = d.row.querySelector('.power-bar-fill');
+      if(pf && maxB>0) pf.style.width = Math.round(d.b/maxB*100) + '%';
+      var rk = d.row.querySelector('.rank');
+      if(rk && d.rank!==999) rk.textContent = d.rank;
+      d.row.classList.toggle('rank-1', d.rank===1);
+      total += d.b;
+    }
+    list.appendChild(d.row); // reorder DOM to match rank
+  });
+
+  var tv = document.querySelector('.state-total .val');
+  if(tv && total>0) tv.textContent = fmtB(total);
+})();
 (function(){
   var btn=document.querySelector('.menu-btn');
   var nav=document.querySelector('.appbar-nav');

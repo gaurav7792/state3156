@@ -23,12 +23,12 @@ var STATE3156_CONFIG = {
   // Update after each leaderboard screenshot
   // Last updated: MAY 25, 2026
   POWER_RANKS: {
-    WLD: { rank: 1, power: '19.1B' },
-    PHX: { rank: 2, power: '15.9B' },
-    VKS: { rank: 3, power: '15.7B' },
-    EVL: { rank: 4, power: '14.7B' },
-    HWZ: { rank: 5, power: '10.4B' },
-    MAD: { rank: 6, power:  '8.0B' }
+    WLD: { rank: 1, power: '20B' },
+    PHX: { rank: 2, power: '16.5B' },
+    VKS: { rank: 3, power: '15.5B' },
+    EVL: { rank: 4, power: '15.5B' },
+    HWZ: { rank: 5, power: '9B' },
+    MAD: { rank: 6, power: '9B' }
   },
 
   // ── Transfer window ────────────────────────────────────────────

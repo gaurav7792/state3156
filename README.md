@@ -2,13 +2,13 @@
 
 Recruitment and information site for State 3156 — Whiteout Survival, Group 14.
 
-Live at: **[gaurav7792.github.io/state3156](https://gaurav7792.github.io/state3156/)**
+Live at: **[state3156.com](https://state3156.com)** (also serves `www.state3156.com`)
 
 ---
 
 ## What this is
 
-A static HTML site for recruiting players into State 3156. No framework, no build step, no dependencies. Every page is a single `.html` file.
+A static HTML site for recruiting players into State 3156. No framework, no build step, no dependencies. Every page is a single `.html` file. Live alliance data is pulled client-side from Google Sheets.
 
 ---
 
@@ -16,19 +16,32 @@ A static HTML site for recruiting players into State 3156. No framework, no buil
 
 ```
 state3156/
-├── index.html          Homepage — state pitch, SvS record, KPIs, quick links
+├── index.html              Homepage — state pitch, SvS record, KPIs, quick links
+├── config.js               Central config — power ranks, Sheet URLs, transfer status
+├── _shared.css             Currently unused (pages use inline <style>)
+├── .nojekyll               Disables Jekyll so all files (incl. _ prefixed) serve as-is
+├── CNAME                   Custom-domain pin — managed by GitHub Pages, do not delete
+├── admin/
+│   └── create-form.gs      Apps Script — generates the R5 data-submission form
 ├── grip/
-│   └── index.html      GRIP governance framework — inter-alliance rules
+│   └── index.html          GRIP governance framework — inter-alliance rules
 ├── story/
-│   └── index.html      APR '26 postmortem — the one we lost
+│   └── index.html          APR '26 postmortem — the one we lost
 ├── tools/
-│   └── index.html      SvS Scheduler + tools (in progress)
-├── alliances/
-│   └── index.html      Alliance directory (in progress)
+│   └── index.html          SvS Scheduler + tools
 ├── transfers/
-│   └── index.html      Transfer mechanics explainer (in progress)
-└── operations/
-    └── index.html      Voice ops / DCVC coordination (in progress)
+│   └── index.html          Transfer mechanics explainer
+├── operations/
+│   └── index.html          Voice ops / DCVC coordination
+└── alliances/
+    ├── index.html          Alliance directory — ranked by power
+    ├── TEMPLATE.html        Copy-paste starting point for a new alliance page
+    ├── vks/index.html
+    ├── wld/index.html
+    ├── phx/index.html
+    ├── evl/index.html
+    ├── hwz/index.html
+    └── mad/index.html
 ```
 
 ---
@@ -40,30 +53,63 @@ state3156/
 | `/` | ✅ Live | Homepage |
 | `/grip` | ✅ Live | Full GRIP v1.0 content |
 | `/story` | ✅ Live | APR '26 postmortem |
-| `/tools` | 🔲 Stub | Link to SvS Scheduler pending |
-| `/alliances` | 🔲 Stub | Waiting on R5 pitches |
-| `/transfers` | 🔲 Stub | Transfer mechanics content pending |
-| `/operations` | 🔲 Stub | DCVC system write-up pending |
+| `/transfers` | ✅ Live | Transfer mechanics explainer |
+| `/operations` | ✅ Live | Voice ops / DCVC write-up |
+| `/alliances` | ✅ Live | Directory + six alliance sub-pages (VKS, WLD, PHX, EVL, HWZ, MAD) |
+| `/tools` | 🔲 Partial | SvS Scheduler link present; rest still "coming soon" |
+
+---
+
+## Hosting & domain
+
+GitHub Pages, served at the apex domain `state3156.com`.
+
+**DNS (at registrar — Namecheap):**
+
+| Type | Host | Value |
+|---|---|---|
+| A | `@` | `185.199.108.153` |
+| A | `@` | `185.199.109.153` |
+| A | `@` | `185.199.110.153` |
+| A | `@` | `185.199.111.153` |
+| CNAME | `www` | `gaurav7792.github.io` |
+
+Custom domain is set in **Settings → Pages → Custom domain**, which manages the `CNAME` file. **Enforce HTTPS** is on (free auto-provisioned cert).
+
+Because the site lives at the domain *root* (not a `/state3156/` sub-path anymore), all internal links are **root-relative** (`/alliances`, `/config.js`, …). Do not reintroduce a `/state3156/` prefix.
 
 ---
 
 ## Deploying
 
-This is a GitHub Pages site. Push to `main` and it deploys automatically.
+Push to `main` and Pages redeploys automatically (~1–2 min).
 
-```bash
-git add .
-git commit -m "your message"
-git push
-```
+- **Git:** `git add . && git commit -m "..." && git push`
+- **Web upload:** Add file → Upload files → **commit directly to `main`** (not a new branch — a `patch-N` branch won't go live until merged).
 
-Pages deploys to `gaurav7792.github.io/state3156/` within ~2 minutes.
+After deploy, hard-refresh (`Ctrl/Cmd+Shift+R`) to bypass cached files.
+
+---
+
+## Configuration — `config.js`
+
+Central config object `STATE3156_CONFIG`. Edit here, re-upload, no other files change.
+
+| Key | What it controls |
+|---|---|
+| `RESPONSES_CSV` | Published CSV of the R5 form-response sheet (alliance data) |
+| `ADMIN_CSV` | Published CSV of the admin tab (Published TRUE/FALSE gate per alliance) |
+| `POWER_RANKS` | Per-alliance `{ rank, power }` — drives the directory's ranked bars |
+| `TRANSFER_*` | Transfer window: open flag, group, eligible range, spots, cap, dates |
+| `STATE_DISCORD` | State Discord invite |
+
+> **Note:** in `POWER_RANKS`, `rank` and `power` are independent fields — if you edit power without re-sorting rank, they can drift out of sync.
 
 ---
 
 ## Updating SvS data
 
-SvS history lives in `index.html` inside the `<!-- SvS history -->` comment block. Each cycle is one `.row` div:
+SvS history lives in `index.html` inside the `<!-- SvS history -->` block. Each cycle is one `.row` div:
 
 ```html
 <div class="row">
@@ -74,20 +120,17 @@ SvS history lives in `index.html` inside the `<!-- SvS history -->` comment bloc
 </div>
 ```
 
-- Add new cycles at the **top** of the list (newest first)
+- Add new cycles at the **top** (newest first)
 - Move the `newest` class to the most recent row
 - Update the summary totals in `.side-header .summary`
-- Update the banner spot count when transfers open/close
 
 ---
 
 ## Updating transfer status
 
-Three places to update each transfer window:
-
 1. **Banner** — `<span class="text">` near the top of `index.html`
 2. **KPI tile** — the `Transfers` tile value and sub-line
-3. **RECRUITING pill** — change text if window closes (`NOT RECRUITING`, remove pulsing dot)
+3. **RECRUITING pill** — change text if the window closes (`NOT RECRUITING`, remove pulsing dot)
 
 ---
 
